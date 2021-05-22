@@ -38,12 +38,14 @@ def cli():
 
     args_shared.add_argument(
         '-p', '--part',
+        metavar='FPGA',
         default='TODO',
         help='target FPGA part'
     )
 
     args_shared.add_argument(
         '-o', '--outdir',
+        metavar='PATH',
         default='.',
         help='location for generated files'
     )
@@ -56,6 +58,7 @@ def cli():
 
     args_shared.add_argument(
         "--oci-options",
+        metavar='OPTIONS',
         default='-v $HOME:$HOME -w $PWD',
         help='options for the OCI engine (a string between quotation marks)'
     )
@@ -66,6 +69,7 @@ def cli():
 
     args_for_syn.add_argument(
         '-t', '--top',
+        metavar='NAME',
         help='specify a top-level name'
     )
 
@@ -105,18 +109,21 @@ def cli():
 
     args_for_syn.add_argument(
         '--vlog',
+        metavar='FILE',
         nargs='+',
         help='Verilog files'
     )
 
     args_for_syn.add_argument(
         '--slog',
+        metavar='FILE',
         nargs='+',
         help='System Verilog files'
     )
 
     args_for_syn.add_argument(
         '--scf',
+        metavar='FILE',
         nargs='+',
         help='Synthesis Constraint Files'
     )
@@ -126,6 +133,7 @@ def cli():
     args_for_imp = argparse.ArgumentParser(add_help=False)
     args_for_imp.add_argument(
         '--icf',
+        metavar='FILE',
         nargs='+',
         help='Implementation Constraint Files'
     )
@@ -144,7 +152,11 @@ def cli():
         version='v{}'.format(version)
     )
 
-    subparsers = parser.add_subparsers(dest='command')
+    subparsers = parser.add_subparsers(
+        dest='command',
+        required=True,
+        help='Available commands'
+    )
 
     subparsers.add_parser(
         'all',

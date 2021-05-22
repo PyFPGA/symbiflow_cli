@@ -6,3 +6,12 @@
 A CLI utility which solves **HDL-to-bitstream** based on FOSS.
 
 > **Disclaimer:** this repository is a proposal for a [SymbiFlow](https://github.com/SymbiFlow) CLI, but is not directly related, neither endorsed, by the project.
+
+## Instructions
+
+Install:
+```bash
+pip3 install -e .
+```
+
+And check [here](docs/cli.rst).
