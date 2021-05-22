@@ -10,7 +10,7 @@ with open('README.md', 'r') as f:
 setup(
     name='symbiflow',
     version=version,
-    description='CLI utilities which solves HDL-to-bitstream based on FOSS',
+    description='A CLI utility which solves HDL-to-bitstream based on FOSS',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='Rodrigo A. Melo',
@@ -20,10 +20,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'symbiflow_syn = symbiflow.tools.syn:main',
-            'symbiflow_imp = symbiflow.tools.imp:main',
-            'symbiflow_bit = symbiflow.tools.bit:main',
-            'symbiflow_cli = symbiflow.tools.cli:main'
+            'symbiflow = symbiflow.cli:cli'
         ],
     },
     classifiers=[
