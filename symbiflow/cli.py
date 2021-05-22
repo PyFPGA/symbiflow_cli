@@ -12,7 +12,7 @@
 """SymbiFlow CLI"""
 
 import argparse
-from fpga import __version__ as version
+from symbiflow import __version__ as version
 
 ALL_DESC = 'Performs from synthesis to bitstream generation'
 SYN_DESC = 'Performs synthesis'
