@@ -12,6 +12,8 @@
 """SymbiFlow CLI"""
 
 import argparse
+import logging
+import sys
 from symbiflow import __version__ as version
 from symbiflow.symbiflow import SymbiFlow
 
@@ -24,6 +26,8 @@ BIT_DESC = 'Performs bitstream generation'
 DEF_PART = 'hx8k-ct256'
 DEF_OUTDIR = '.'
 DEF_OCI_OPTIONS = '-v $HOME:$HOME -w $PWD'
+
+COMMANDS = ['all', 'syn', 'imp', 'bit']
 
 
 def cli():
@@ -38,15 +42,15 @@ def cli():
     args_shared = argparse.ArgumentParser(add_help=False)
 
     args_shared.add_argument(
-        'name',
-        help='basename for generated files (project name)'
+        'project',
+        help='basename for generated files'
     )
 
     args_shared.add_argument(
         '-p', '--part',
         metavar='FPGA',
         default=DEF_PART,
-        help='target FPGA part [{}]'.format(DEF_PART)
+        help='name of the target FPGA part [{}]'.format(DEF_PART)
     )
 
     args_shared.add_argument(
@@ -160,7 +164,7 @@ def cli():
 
     subparsers = parser.add_subparsers(
         dest='command',
-        required=True,
+        # required=True, # added in Python 3.7
         help='Available commands'
     )
 
@@ -195,10 +199,19 @@ def cli():
     args = parser.parse_args()
 
     #
+    # Check arguments
+    #
+
+    logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
+    if args.command not in COMMANDS:
+        logging.critical('specify an available command %s', COMMANDS)
+        sys.exit()
+
+    #
     # Invoke the tools
     #
 
-    prj = SymbiFlow(args.name, args.part, args.outdir)
+    prj = SymbiFlow(args.project, args.part, args.outdir)
     prj.set_oci(args.oci_engine, args.oci_options)
     if args.command == 'all':
         prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
