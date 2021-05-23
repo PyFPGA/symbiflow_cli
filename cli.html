@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Command-line Interface &#8212; SymbiFlow CLI  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="SymbiFlow CLI’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="command-line-interface">
+<h1>Command-line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="symbiflow">
+<h2>symbiflow<a class="headerlink" href="#symbiflow" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span> <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">}</span> <span class="o">...</span>
+
+<span class="n">SymbiFlow</span> <span class="n">CLI</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">}</span>  <span class="n">Available</span> <span class="n">commands</span>
+    <span class="nb">all</span>              <span class="n">Performs</span> <span class="kn">from</span> <span class="nn">synthesis</span> <span class="n">to</span> <span class="n">bitstream</span> <span class="n">generation</span>
+    <span class="n">syn</span>              <span class="n">Performs</span> <span class="n">synthesis</span>
+    <span class="n">imp</span>              <span class="n">Performs</span> <span class="n">implementation</span>
+    <span class="n">bit</span>              <span class="n">Performs</span> <span class="n">bitstream</span> <span class="n">generation</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>         <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span>      <span class="n">show</span> <span class="n">program</span><span class="s1">&#39;s version number and exit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="symbiflow-all">
+<h2>symbiflow all<a class="headerlink" href="#symbiflow-all" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="nb">all</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">param</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">arch</span> <span class="n">ARCHITECTURE</span><span class="p">]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">define</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">include</span> <span class="p">[</span><span class="n">PATH</span> <span class="p">[</span><span class="n">PATH</span> <span class="o">...</span><span class="p">]]]</span> <span class="p">[</span><span class="o">--</span><span class="n">vhdl</span> <span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span> <span class="o">...</span><span class="p">]]</span> <span class="p">[</span><span class="o">--</span><span class="n">vlog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">slog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span> <span class="p">[</span><span class="o">--</span><span class="n">scf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">icf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span><span class="p">]</span>
+                     <span class="n">name</span>
+
+<span class="n">Performs</span> <span class="kn">from</span> <span class="nn">synthesis</span> <span class="n">to</span> <span class="n">bitstream</span> <span class="n">generation</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>                  <span class="n">basename</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span> <span class="p">(</span><span class="n">project</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">t</span> <span class="n">NAME</span><span class="p">,</span> <span class="o">--</span><span class="n">top</span> <span class="n">NAME</span>   <span class="n">specify</span> <span class="n">a</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">name</span>
+  <span class="o">--</span><span class="n">param</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]</span>
+                        <span class="n">specify</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">Generics</span><span class="o">/</span><span class="n">Parameters</span>
+  <span class="o">--</span><span class="n">arch</span> <span class="n">ARCHITECTURE</span>   <span class="n">specify</span> <span class="n">a</span> <span class="n">VHDL</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">Architecture</span>
+  <span class="o">--</span><span class="n">define</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]</span>
+                        <span class="n">specify</span> <span class="p">[</span><span class="n">System</span><span class="p">]</span> <span class="n">Verilog</span> <span class="n">Defines</span>
+  <span class="o">--</span><span class="n">include</span> <span class="p">[</span><span class="n">PATH</span> <span class="p">[</span><span class="n">PATH</span> <span class="o">...</span><span class="p">]]</span>
+                        <span class="n">specify</span> <span class="p">[</span><span class="n">System</span><span class="p">]</span> <span class="n">Verilog</span> <span class="n">Include</span> <span class="n">Paths</span>
+  <span class="o">--</span><span class="n">vhdl</span> <span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span> <span class="p">[</span><span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">VHDL</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">vlog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">Verilog</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">slog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">System</span> <span class="n">Verilog</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">scf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">Synthesis</span> <span class="n">Constraint</span> <span class="n">Files</span>
+  <span class="o">--</span><span class="n">icf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">Implementation</span> <span class="n">Constraint</span> <span class="n">Files</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">,</span> <span class="o">--</span><span class="n">part</span> <span class="n">FPGA</span>  <span class="n">target</span> <span class="n">FPGA</span> <span class="n">part</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">,</span> <span class="o">--</span><span class="n">outdir</span> <span class="n">PATH</span>
+                        <span class="n">location</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}</span>
+                        <span class="n">OCI</span> <span class="n">engine</span> <span class="n">internally</span> <span class="n">employed</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span>
+                        <span class="n">options</span> <span class="k">for</span> <span class="n">the</span> <span class="n">OCI</span> <span class="n">engine</span> <span class="p">(</span><span class="n">a</span> <span class="n">string</span> <span class="n">between</span> <span class="n">quotation</span>
+                        <span class="n">marks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="symbiflow-syn">
+<h2>symbiflow syn<a class="headerlink" href="#symbiflow-syn" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="n">syn</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span> <span class="n">NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">param</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">arch</span> <span class="n">ARCHITECTURE</span><span class="p">]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">define</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">include</span> <span class="p">[</span><span class="n">PATH</span> <span class="p">[</span><span class="n">PATH</span> <span class="o">...</span><span class="p">]]]</span> <span class="p">[</span><span class="o">--</span><span class="n">vhdl</span> <span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span>
+                     <span class="p">[</span><span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span> <span class="o">...</span><span class="p">]]</span> <span class="p">[</span><span class="o">--</span><span class="n">vlog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">slog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span> <span class="p">[</span><span class="o">--</span><span class="n">scf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span>
+                     <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span><span class="p">]</span>
+                     <span class="n">name</span>
+
+<span class="n">Performs</span> <span class="n">synthesis</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>                  <span class="n">basename</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span> <span class="p">(</span><span class="n">project</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">t</span> <span class="n">NAME</span><span class="p">,</span> <span class="o">--</span><span class="n">top</span> <span class="n">NAME</span>   <span class="n">specify</span> <span class="n">a</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">name</span>
+  <span class="o">--</span><span class="n">param</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">PARAM</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]</span>
+                        <span class="n">specify</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">Generics</span><span class="o">/</span><span class="n">Parameters</span>
+  <span class="o">--</span><span class="n">arch</span> <span class="n">ARCHITECTURE</span>   <span class="n">specify</span> <span class="n">a</span> <span class="n">VHDL</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">Architecture</span>
+  <span class="o">--</span><span class="n">define</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="p">[</span><span class="n">DEFINE</span><span class="p">:</span><span class="n">VALUE</span> <span class="o">...</span><span class="p">]]</span>
+                        <span class="n">specify</span> <span class="p">[</span><span class="n">System</span><span class="p">]</span> <span class="n">Verilog</span> <span class="n">Defines</span>
+  <span class="o">--</span><span class="n">include</span> <span class="p">[</span><span class="n">PATH</span> <span class="p">[</span><span class="n">PATH</span> <span class="o">...</span><span class="p">]]</span>
+                        <span class="n">specify</span> <span class="p">[</span><span class="n">System</span><span class="p">]</span> <span class="n">Verilog</span> <span class="n">Include</span> <span class="n">Paths</span>
+  <span class="o">--</span><span class="n">vhdl</span> <span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span> <span class="p">[</span><span class="n">FILE</span><span class="p">[,</span><span class="n">LIBRARY</span><span class="p">]</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">VHDL</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">vlog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">Verilog</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">slog</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">System</span> <span class="n">Verilog</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">scf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">Synthesis</span> <span class="n">Constraint</span> <span class="n">Files</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">,</span> <span class="o">--</span><span class="n">part</span> <span class="n">FPGA</span>  <span class="n">target</span> <span class="n">FPGA</span> <span class="n">part</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">,</span> <span class="o">--</span><span class="n">outdir</span> <span class="n">PATH</span>
+                        <span class="n">location</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}</span>
+                        <span class="n">OCI</span> <span class="n">engine</span> <span class="n">internally</span> <span class="n">employed</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span>
+                        <span class="n">options</span> <span class="k">for</span> <span class="n">the</span> <span class="n">OCI</span> <span class="n">engine</span> <span class="p">(</span><span class="n">a</span> <span class="n">string</span> <span class="n">between</span> <span class="n">quotation</span>
+                        <span class="n">marks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="symbiflow-imp">
+<h2>symbiflow imp<a class="headerlink" href="#symbiflow-imp" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="n">imp</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">icf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span><span class="p">]</span>
+                     <span class="n">name</span>
+
+<span class="n">Performs</span> <span class="n">implementation</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>                  <span class="n">basename</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span> <span class="p">(</span><span class="n">project</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">icf</span> <span class="n">FILE</span> <span class="p">[</span><span class="n">FILE</span> <span class="o">...</span><span class="p">]</span>
+                        <span class="n">Implementation</span> <span class="n">Constraint</span> <span class="n">Files</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">,</span> <span class="o">--</span><span class="n">part</span> <span class="n">FPGA</span>  <span class="n">target</span> <span class="n">FPGA</span> <span class="n">part</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">,</span> <span class="o">--</span><span class="n">outdir</span> <span class="n">PATH</span>
+                        <span class="n">location</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}</span>
+                        <span class="n">OCI</span> <span class="n">engine</span> <span class="n">internally</span> <span class="n">employed</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span>
+                        <span class="n">options</span> <span class="k">for</span> <span class="n">the</span> <span class="n">OCI</span> <span class="n">engine</span> <span class="p">(</span><span class="n">a</span> <span class="n">string</span> <span class="n">between</span> <span class="n">quotation</span>
+                        <span class="n">marks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="symbiflow-bit">
+<h2>symbiflow bit<a class="headerlink" href="#symbiflow-bit" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="n">bit</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}]</span>
+                     <span class="p">[</span><span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span><span class="p">]</span>
+                     <span class="n">name</span>
+
+<span class="n">Performs</span> <span class="n">bitstream</span> <span class="n">generation</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>                  <span class="n">basename</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span> <span class="p">(</span><span class="n">project</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">FPGA</span><span class="p">,</span> <span class="o">--</span><span class="n">part</span> <span class="n">FPGA</span>  <span class="n">target</span> <span class="n">FPGA</span> <span class="n">part</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">PATH</span><span class="p">,</span> <span class="o">--</span><span class="n">outdir</span> <span class="n">PATH</span>
+                        <span class="n">location</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">files</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="p">{</span><span class="n">none</span><span class="p">,</span><span class="n">docker</span><span class="p">,</span><span class="n">podman</span><span class="p">}</span>
+                        <span class="n">OCI</span> <span class="n">engine</span> <span class="n">internally</span> <span class="n">employed</span>
+  <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">options</span> <span class="n">OPTIONS</span>
+                        <span class="n">options</span> <span class="k">for</span> <span class="n">the</span> <span class="n">OCI</span> <span class="n">engine</span> <span class="p">(</span><span class="n">a</span> <span class="n">string</span> <span class="n">between</span> <span class="n">quotation</span>
+                        <span class="n">marks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">SymbiFlow CLI</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command-line Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#symbiflow">symbiflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbiflow-all">symbiflow all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbiflow-syn">symbiflow syn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbiflow-imp">symbiflow imp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbiflow-bit">symbiflow bit</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">SymbiFlow CLI’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Rodrigo A. Melo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cli.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
