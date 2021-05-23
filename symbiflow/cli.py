@@ -13,11 +13,17 @@
 
 import argparse
 from symbiflow import __version__ as version
+from symbiflow.symbiflow import SymbiFlow
+
 
 ALL_DESC = 'Performs from synthesis to bitstream generation'
 SYN_DESC = 'Performs synthesis'
 IMP_DESC = 'Performs implementation'
 BIT_DESC = 'Performs bitstream generation'
+
+DEF_PART = 'hx8k-ct256'
+DEF_OUTDIR = '.'
+DEF_OCI_OPTIONS = '-v $HOME:$HOME -w $PWD'
 
 
 def cli():
@@ -39,15 +45,15 @@ def cli():
     args_shared.add_argument(
         '-p', '--part',
         metavar='FPGA',
-        default='TODO',
-        help='target FPGA part'
+        default=DEF_PART,
+        help='target FPGA part [{}]'.format(DEF_PART)
     )
 
     args_shared.add_argument(
         '-o', '--outdir',
         metavar='PATH',
-        default='.',
-        help='location for generated files'
+        default=DEF_OUTDIR,
+        help='location for generated files [{}]'.format(DEF_OUTDIR)
     )
 
     args_shared.add_argument(
@@ -58,9 +64,9 @@ def cli():
 
     args_shared.add_argument(
         "--oci-options",
-        metavar='OPTIONS',
-        default='-v $HOME:$HOME -w $PWD',
-        help='options for the OCI engine (a string between quotation marks)'
+        metavar='OPTIONS_BETWEEN_QUOTATION_MARKS',
+        default=DEF_OCI_OPTIONS,
+        help='options for the OCI engine [{}]'.format(DEF_OCI_OPTIONS)
     )
 
     # Arguments for synthesis
@@ -186,8 +192,27 @@ def cli():
         parents=[args_shared]
     )
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    #
+    # Invoke the tools
+    #
+
+    prj = SymbiFlow(args.name, args.part, args.outdir)
+    prj.set_oci(args.oci_engine, args.oci_options)
+    if args.command == 'all':
+        prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
+                      args.param, args.arch, args.define, args.include)
+        prj.implementation(args.icf)
+        prj.bitstream()
+    elif args.command == 'syn':
+        prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
+                      args.param, args.arch, args.define, args.include)
+    elif args.command == 'imp':
+        prj.implementation(args.icf)
+    else:  # 'bit':
+        prj.bitstream()
 
 
 if __name__ == "__main__":
-    print(cli())
+    cli()
