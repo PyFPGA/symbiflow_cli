@@ -63,12 +63,12 @@
                      [--icf FILE [FILE ...]] [-p FPGA] [-o PATH]
                      [--oci-engine {none,docker,podman}]
                      [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     name
+                     project
 
 Performs from synthesis to bitstream generation
 
 positional arguments:
-  name                  basename for generated files (project name)
+  project               basename for generated files
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -90,7 +90,7 @@ optional arguments:
                         Synthesis Constraint Files
   --icf FILE [FILE ...]
                         Implementation Constraint Files
-  -p FPGA, --part FPGA  target FPGA part [hx8k-ct256]
+  -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {none,docker,podman}
@@ -110,12 +110,12 @@ optional arguments:
                      [--slog FILE [FILE ...]] [--scf FILE [FILE ...]]
                      [-p FPGA] [-o PATH] [--oci-engine {none,docker,podman}]
                      [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     name
+                     project
 
 Performs synthesis
 
 positional arguments:
-  name                  basename for generated files (project name)
+  project               basename for generated files
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -135,7 +135,7 @@ optional arguments:
                         System Verilog files
   --scf FILE [FILE ...]
                         Synthesis Constraint Files
-  -p FPGA, --part FPGA  target FPGA part [hx8k-ct256]
+  -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {none,docker,podman}
@@ -150,18 +150,18 @@ optional arguments:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow imp [-h] [--icf FILE [FILE ...]] [-p FPGA] [-o PATH]
                      [--oci-engine {none,docker,podman}]
                      [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     name
+                     project
 
 Performs implementation
 
 positional arguments:
-  name                  basename for generated files (project name)
+  project               basename for generated files
 
 optional arguments:
   -h, --help            show this help message and exit
   --icf FILE [FILE ...]
                         Implementation Constraint Files
-  -p FPGA, --part FPGA  target FPGA part [hx8k-ct256]
+  -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {none,docker,podman}
@@ -176,16 +176,16 @@ optional arguments:
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow bit [-h] [-p FPGA] [-o PATH]
                      [--oci-engine {none,docker,podman}]
                      [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     name
+                     project
 
 Performs bitstream generation
 
 positional arguments:
-  name                  basename for generated files (project name)
+  project               basename for generated files
 
 optional arguments:
   -h, --help            show this help message and exit
-  -p FPGA, --part FPGA  target FPGA part [hx8k-ct256]
+  -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {none,docker,podman}
