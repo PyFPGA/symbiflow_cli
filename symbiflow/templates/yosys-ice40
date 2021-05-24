@@ -1,0 +1,6 @@
+yosys -Q {module} -p '
+{includes};
+{files};
+{params};
+synth_ice40 -top {top} -json {outdir}/{project}.json
+'

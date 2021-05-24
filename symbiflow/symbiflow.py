@@ -14,13 +14,16 @@
 A Python Package which solves HDL-to-bitstream based on FOSS.
 """
 
+import subprocess
+from pathlib import Path
+
 
 class SymbiFlow:
     """Class which solves HDL-to-bitstream based on FOSS."""
 
-    def __init__(self, name='symbiflow', part='hx8k-ct256', outdir='.'):
+    def __init__(self, project='symbiflow', part='hx8k-ct256', outdir='.'):
         """Class constructor."""
-        self.name = name
+        self.project = project
         self.part = get_info(part)
         self.outdir = outdir
         self.engine = 'none'
@@ -32,31 +35,77 @@ class SymbiFlow:
         self.options = options
 
     # pylint: disable=too-many-arguments
+    # pylint: disable=unused-argument
+    # pylint: disable=too-many-locals
     def synthesis(self, top, vhdl=None, vlog=None, slog=None, scf=None,
                   param=None, arch=None, define=None, include=None):
         """Performs synthesis."""
-        print(self.name)
-        print(self.part)
-        print(top)
-        print(vhdl)
-        print(vlog)
-        print(slog)
-        print(scf)
-        print(arch)
-        print(define)
-        print(param)
-        print(include)
+        if vhdl is None and vlog is None and slog is None:
+            raise FileNotFoundError()
+        # print(slog)
+        # print(scf)
+        # print(arch)
+        # print(define)
+        # print(param)
+        # print(include)
+        # Prepare OCI
+        oci = read_template('oci').format(
+            engine=self.engine,
+            options=self.options,
+            container='hdlc/ghdl:yosys'
+        ) + ' ' if self.engine is not None else ''
+        # Prepare and run GHDL analysis
+        if vhdl is not None:
+            for file in vhdl:
+                aux = file.split(',')
+                library = '--work={}'.format(aux[1]) if len(aux) > 1 else ''
+                cmd = oci + read_template('ghdl-a').format(
+                     outdir=self.outdir,
+                     library=library,
+                     file=aux[0]
+                )
+                self._run(cmd)
+        # Prepare and run Yosys synthesis
+        files = []
+        if vlog is not None:
+            for file in vlog:
+                files.append('read_verilog {}'.format(file))
+        if vhdl is not None:
+            files = [read_template('ghdl-synth').format(
+                 outdir=self.outdir,
+                 unit=top,
+                 arch=''
+            )]
+        family = self.part['family']
+        cmd = oci
+        cmd += read_template('yosys-{}'.format(family)).format(
+            module='-m ghdl' if vhdl is not None else '',
+            includes='',
+            files='; '.join(files),
+            params='',
+            top=top,
+            outdir=self.outdir,
+            project=self.project
+        )
+        self._run(cmd)
 
     def implementation(self, icf=None):
         """Performs implementation."""
-        print(self.name)
+        print(self.project)
         print(self.part)
         print(icf)
 
     def bitstream(self):
         """Performs bitstream generation."""
-        print(self.name)
+        print(self.project)
         print(self.part)
+
+    def _run(self, command):
+        """Run the specified command."""
+        Path(self.outdir).mkdir(parents=True, exist_ok=True)
+        subprocess.run(
+            command, shell=True, check=True, universal_newlines=True,
+        )
 
 
 def get_info(part):
@@ -110,3 +159,10 @@ def get_info(part):
     return {
         'family': family, 'device': device, 'package': package
     }
+
+
+def read_template(name):
+    """Read the specified template file."""
+    template = Path(__file__).parent / 'templates' / name
+    with open(template, 'r') as file:
+        return file.read().strip()

@@ -1,0 +1,1 @@
+ghdl --std=08 -fsynopsys -fexplicit -frelaxed --workdir={outdir} -P{outdir} {unit} {arch}
