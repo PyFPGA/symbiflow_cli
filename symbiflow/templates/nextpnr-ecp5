@@ -1,0 +1,1 @@
+nextpnr-ecp5 --{device} --package {package} --json {outdir}/{project}.json --lpf {outdir}/{project}.lpf --lpf-allow-unconstrained --textcfg {outdir}/{project}.config

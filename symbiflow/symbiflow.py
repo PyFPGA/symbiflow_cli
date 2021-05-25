@@ -28,6 +28,7 @@ class SymbiFlow:
         self.outdir = outdir
         self.engine = 'none'
         self.options = None
+        Path(self.outdir).mkdir(parents=True, exist_ok=True)
 
     def set_oci(self, engine, options):
         """Set the OCI engine and its options."""
@@ -64,7 +65,7 @@ class SymbiFlow:
                      library=library,
                      file=aux[0]
                 )
-                self._run(cmd)
+                _run(cmd)
         # Prepare and run Yosys synthesis
         files = []
         if vlog is not None:
@@ -87,25 +88,44 @@ class SymbiFlow:
             outdir=self.outdir,
             project=self.project
         )
-        self._run(cmd)
+        _run(cmd)
 
     def implementation(self, icf=None):
         """Performs implementation."""
-        print(self.project)
-        print(self.part)
-        print(icf)
+        # print(icf)
+        family = self.part['family']
+        if family == 'ice40':
+            ext = 'pcf'
+        else:  # family == 'ecp5'
+            ext = 'lpf'
+        constraint = Path('.') / self.outdir / self.project
+        constraint = '{}.{}'.format(constraint, ext)
+        with open(constraint, 'w') as file:
+            file.write('#')
+        cmd = read_template('oci').format(
+            engine=self.engine,
+            options=self.options,
+            container='hdlc/nextpnr:{}'.format(family)
+        ) + ' ' if self.engine is not None else ''
+        cmd += read_template('nextpnr-{}'.format(family)).format(
+            device=self.part['device'],
+            package=self.part['package'],
+            outdir=self.outdir,
+            project=self.project
+        )
+        _run(cmd)
 
     def bitstream(self):
         """Performs bitstream generation."""
         print(self.project)
         print(self.part)
 
-    def _run(self, command):
-        """Run the specified command."""
-        Path(self.outdir).mkdir(parents=True, exist_ok=True)
-        subprocess.run(
-            command, shell=True, check=True, universal_newlines=True,
-        )
+
+def _run(command):
+    """Run the specified command."""
+    subprocess.run(
+        command, shell=True, check=True, universal_newlines=True,
+    )
 
 
 def get_info(part):
@@ -155,6 +175,8 @@ def get_info(part):
         # See http://www.clifford.at/icestorm/
         device = device.replace('4', '8')
         package += ":4k"
+    if family == 'ecp5':
+        package = package.upper()
     # Finish
     return {
         'family': family, 'device': device, 'package': package
