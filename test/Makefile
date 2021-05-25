@@ -7,7 +7,7 @@ test: all syn imp bit
 # Synthesis test cases
 #
 
-syn: vhdl-simple vhdl-complex vlog-simple vlog-complex
+syn: vhdl-simple vhdl-complex vlog-simple vlog-complex ice40 ecp5
 
 vhdl-simple:
 	symbiflow syn --oci-engine docker \
@@ -33,6 +33,18 @@ vlog-complex:
 			$(VLOGDIR)/blink.v \
 			$(VLOGDIR)/top.v \
 		--top Top -o build-$@ $@
+
+ice40:
+	symbiflow syn --oci-engine docker \
+		--vlog $(VLOGDIR)/blink.v \
+		--part hx4k-tq144 \
+		--top Blink -o build-$@ $@
+
+ecp5:
+	symbiflow syn --oci-engine docker \
+		--vlog $(VLOGDIR)/blink.v \
+		--part um5g-85k-CABGA381 \
+		--top Blink -o build-$@ $@
 
 #
 # Implementation test cases
