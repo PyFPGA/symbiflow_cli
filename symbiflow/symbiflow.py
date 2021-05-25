@@ -114,6 +114,18 @@ class SymbiFlow:
             project=self.project
         )
         _run(cmd)
+        if family == 'ice40':
+            cmd = read_template('oci').format(
+                engine=self.engine,
+                options=self.options,
+                container='hdlc/icestorm'
+            ) + ' ' if self.engine is not None else ''
+            cmd += read_template('icetime').format(
+                device=self.part['device'],
+                outdir=self.outdir,
+                project=self.project
+            )
+            _run(cmd)
 
     def bitstream(self):
         """Performs bitstream generation."""

@@ -1,0 +1,1 @@
+icetime -d {device} -mtr {outdir}/{project}.rpt {outdir}/{project}.asc
