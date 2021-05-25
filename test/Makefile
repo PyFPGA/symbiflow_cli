@@ -62,8 +62,13 @@ imp-ecp5:
 # Bitstream generation test cases
 #
 
-bit:
-	symbiflow $@ project-$@
+bit: bit-ice40 bit-ecp5
+
+bit-ice40:
+	symbiflow bit --oci-engine docker --part hx4k-tq144 -o build-ice40 ice40
+
+bit-ecp5:
+	symbiflow bit --oci-engine docker --part 25k-CSFBGA285 -o build-ecp5 ecp5
 
 #
 # Complete flow test cases

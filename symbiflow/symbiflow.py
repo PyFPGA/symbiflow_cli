@@ -129,8 +129,29 @@ class SymbiFlow:
 
     def bitstream(self):
         """Performs bitstream generation."""
-        print(self.project)
-        print(self.part)
+        family = self.part['family']
+        if family == 'ice40':
+            cmd = read_template('oci').format(
+                engine=self.engine,
+                options=self.options,
+                container='hdlc/icestorm'
+            ) + ' ' if self.engine is not None else ''
+            cmd += read_template('icepack').format(
+                outdir=self.outdir,
+                project=self.project
+            )
+            _run(cmd)
+        else:  # family == 'ecp5'
+            cmd = read_template('oci').format(
+                engine=self.engine,
+                options=self.options,
+                container='hdlc/prjtrellis'
+            ) + ' ' if self.engine is not None else ''
+            cmd += read_template('ecppack').format(
+                outdir=self.outdir,
+                project=self.project
+            )
+            _run(cmd)
 
 
 def _run(command):
