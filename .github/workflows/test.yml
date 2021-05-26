@@ -15,7 +15,13 @@ jobs:
         submodules: true
         fetch-depth: 0
     - name: Pull container images
-      run: docker pull hdlc/ghdl:yosys
+      run: |
+        docker pull hdlc/ghdl:yosys
+        docker pull hdlc/nextpnr:ice40
+        docker pull hdlc/nextpnr:ecp5
+        docker pull hdlc/icestorm
+        docker pull hdlc/prjtrellis
+        docker pull hdlc/prog
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:

@@ -9,6 +9,8 @@ A CLI utility which solves **HDL-to-bitstream** based on FOSS.
 
 > **Disclaimer:** this repository is a proposal for a [SymbiFlow](https://github.com/SymbiFlow) CLI, but is not directly related, neither endorsed, by the project.
 
+> **Note:** this project uses [hdl/containers](https://hdl.github.io/containers).
+
 ## Installation
 
 > **NOTE:** this repo is in a very early stage.
@@ -16,3 +18,5 @@ A CLI utility which solves **HDL-to-bitstream** based on FOSS.
 ```bash
 pip3 install -e .
 ```
+
+> **NOTE:** instructions to test in hardware (IceStick) [here](test).
