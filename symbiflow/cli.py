@@ -22,12 +22,13 @@ ALL_DESC = 'Performs from synthesis to bitstream generation'
 SYN_DESC = 'Performs synthesis'
 IMP_DESC = 'Performs implementation'
 BIT_DESC = 'Performs bitstream generation'
+PGM_DESC = 'Performs programming'
 
 DEF_PART = 'hx8k-ct256'
 DEF_OUTDIR = '.'
 DEF_OCI_OPTIONS = '-v $HOME:$HOME -w $PWD'
 
-COMMANDS = ['all', 'syn', 'imp', 'bit']
+COMMANDS = ['all', 'syn', 'imp', 'bit', 'pgm']
 
 
 def cli():
@@ -196,6 +197,13 @@ def cli():
         parents=[args_shared]
     )
 
+    subparsers.add_parser(
+        'pgm',
+        description=PGM_DESC,
+        help=PGM_DESC,
+        parents=[args_shared]
+    )
+
     args = parser.parse_args()
 
     #
@@ -223,8 +231,10 @@ def cli():
                       args.param, args.arch, args.define, args.include)
     elif args.command == 'imp':
         prj.implementation(args.icf)
-    else:  # 'bit':
+    elif args.command == 'bit':
         prj.bitstream()
+    else:  # 'pgm':
+        prj.programming()
 
 
 if __name__ == "__main__":

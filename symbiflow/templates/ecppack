@@ -1,0 +1,1 @@
+ecppack --svf {outdir}/{project}.svf {outdir}/{project}.config {outdir}/{project}.bit

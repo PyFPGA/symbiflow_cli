@@ -25,3 +25,8 @@ symbiflow bit
 -------------
 
 .. literalinclude:: help-bit.txt
+
+symbiflow pgm
+-------------
+
+.. literalinclude:: help-pgm.txt

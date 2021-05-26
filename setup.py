@@ -17,6 +17,7 @@ setup(
     author_email='rodrigomelo9@gmail.com',
     license='ISC',
     url='https://github.com/PyFPGA/symbiflow_cli',
+    package_data={'': ['templates/*']},
     packages=find_packages(),
     entry_points={
         'console_scripts': [
