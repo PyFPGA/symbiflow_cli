@@ -35,20 +35,22 @@
 <h1>Command-line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="symbiflow">
 <h2>symbiflow<a class="headerlink" href="#symbiflow" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span> <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">}</span> <span class="o">...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span> <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">,</span><span class="n">pgm</span><span class="p">}</span> <span class="o">...</span>
 
 <span class="n">SymbiFlow</span> <span class="n">CLI</span>
 
 <span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
-  <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">}</span>  <span class="n">Available</span> <span class="n">commands</span>
-    <span class="nb">all</span>              <span class="n">Performs</span> <span class="kn">from</span> <span class="nn">synthesis</span> <span class="n">to</span> <span class="n">bitstream</span> <span class="n">generation</span>
-    <span class="n">syn</span>              <span class="n">Performs</span> <span class="n">synthesis</span>
-    <span class="n">imp</span>              <span class="n">Performs</span> <span class="n">implementation</span>
-    <span class="n">bit</span>              <span class="n">Performs</span> <span class="n">bitstream</span> <span class="n">generation</span>
+  <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">,</span><span class="n">pgm</span><span class="p">}</span>
+                        <span class="n">Available</span> <span class="n">commands</span>
+    <span class="nb">all</span>                 <span class="n">Performs</span> <span class="kn">from</span> <span class="nn">synthesis</span> <span class="n">to</span> <span class="n">bitstream</span> <span class="n">generation</span>
+    <span class="n">syn</span>                 <span class="n">Performs</span> <span class="n">synthesis</span>
+    <span class="n">imp</span>                 <span class="n">Performs</span> <span class="n">implementation</span>
+    <span class="n">bit</span>                 <span class="n">Performs</span> <span class="n">bitstream</span> <span class="n">generation</span>
+    <span class="n">pgm</span>                 <span class="n">Performs</span> <span class="n">programming</span>
 
 <span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
-  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>         <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
-  <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span>      <span class="n">show</span> <span class="n">program</span><span class="s1">&#39;s version number and exit</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span>         <span class="n">show</span> <span class="n">program</span><span class="s1">&#39;s version number and exit</span>
 </pre></div>
 </div>
 </div>
@@ -195,6 +197,30 @@ optional arguments:
 </pre></div>
 </div>
 </div>
+<div class="section" id="symbiflow-pgm">
+<h2>symbiflow pgm<a class="headerlink" href="#symbiflow-pgm" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pgm [-h] [-p FPGA] [-o PATH]
+                     [--oci-engine {none,docker,podman}]
+                     [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
+                     project
+
+Performs programming
+
+positional arguments:
+  project               basename for generated files
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
+  -o PATH, --outdir PATH
+                        location for generated files [.]
+  --oci-engine {none,docker,podman}
+                        OCI engine internally employed
+  --oci-options OPTIONS_BETWEEN_QUOTATION_MARKS
+                        options for the OCI engine [-v $HOME:$HOME -w $PWD]
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -221,6 +247,7 @@ optional arguments:
 <li class="toctree-l2"><a class="reference internal" href="#symbiflow-syn">symbiflow syn</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#symbiflow-imp">symbiflow imp</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#symbiflow-bit">symbiflow bit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#symbiflow-pgm">symbiflow pgm</a></li>
 </ul>
 </li>
 </ul>
