@@ -1,5 +1,9 @@
 VHDLDIR = ../resources/vhdl
 VLOGDIR = ../resources/verilog
+CONSDIR = ../resources/constraints
+
+ICE40   = hx1k-tq144
+ECP5    = 25k-CSFBGA285
 
 test: all syn imp bit
 
@@ -37,13 +41,13 @@ vlog-complex:
 syn-ice40:
 	symbiflow syn --oci-engine docker \
 		--vlog $(VLOGDIR)/blink.v \
-		--part hx4k-tq144 \
+		--part $(ICE40) \
 		--top Blink -o build-ice40 ice40
 
 syn-ecp5:
 	symbiflow syn --oci-engine docker \
 		--vlog $(VLOGDIR)/blink.v \
-		--part um5g-85k-CABGA381 \
+		--part $(ECP5) \
 		--top Blink -o build-ecp5 ecp5
 
 #
@@ -53,10 +57,12 @@ syn-ecp5:
 imp: imp-ice40 imp-ecp5
 
 imp-ice40:
-	symbiflow imp --oci-engine docker --part hx4k-tq144 -o build-ice40 ice40
+	symbiflow imp --oci-engine docker \
+		--icf $(CONSDIR)/icestick/clk.pcf $(CONSDIR)/icestick/led.pcf \
+		--part $(ICE40) -o build-ice40 ice40
 
 imp-ecp5:
-	symbiflow imp --oci-engine docker --part 25k-CSFBGA285 -o build-ecp5 ecp5
+	symbiflow imp --oci-engine docker --part $(ECP5) -o build-ecp5 ecp5
 
 #
 # Bitstream generation test cases
@@ -65,16 +71,32 @@ imp-ecp5:
 bit: bit-ice40 bit-ecp5
 
 bit-ice40:
-	symbiflow bit --oci-engine docker --part hx4k-tq144 -o build-ice40 ice40
+	symbiflow bit --oci-engine docker --part $(ICE40) -o build-ice40 ice40
 
 bit-ecp5:
-	symbiflow bit --oci-engine docker --part 25k-CSFBGA285 -o build-ecp5 ecp5
+	symbiflow bit --oci-engine docker --part $(ECP5) -o build-ecp5 ecp5
+
+#
+# Programation
+#
+
+pgm-ice40:
+	symbiflow pgm --oci-engine docker --part $(ICE40) -o build-ice40 ice40
+
+pgm-ecp5:
+	symbiflow pgm --oci-engine docker --part $(ECP5) -o build-ecp5 ecp5
 
 #
 # Complete flow test cases
 #
 
 all:
+
+all-ice40:
+	symbiflow all --oci-engine docker --part $(ICE40) \
+		--vlog $(VLOGDIR)/blink.v \
+		--icf $(CONSDIR)/icestick/clk.pcf $(CONSDIR)/icestick/led.pcf \
+		--top Blink -o build-ice40 ice40
 
 #
 # Clean
