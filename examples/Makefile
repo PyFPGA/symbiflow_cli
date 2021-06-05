@@ -13,7 +13,19 @@ CONSDIR = ../resources/constraints/$(BOARD)
 test: all syn imp bit
 
 #
-# Synthesis test cases
+# Complete flow examples
+#
+
+all:
+
+all-ice40:
+	symbiflow all --oci-engine docker --part $(ICE40) \
+		--vlog $(VLOGDIR)/blink.v \
+		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
+		--top Blink -o build-ice40 ice40
+
+#
+# Synthesis examples
 #
 
 syn: vhdl-simple vhdl-complex vlog-simple vlog-complex syn-ice40 syn-ecp5
@@ -54,7 +66,7 @@ syn-ecp5:
 		--top Blink -o build-ecp5 ecp5
 
 #
-# Implementation test cases
+# Implementation examples
 #
 
 imp: imp-ice40 imp-ecp5
@@ -69,7 +81,7 @@ imp-ecp5:
 	-o build-ecp5 ecp5
 
 #
-# Bitstream generation test cases
+# Bitstream generation examples
 #
 
 bit: bit-ice40 bit-ecp5
@@ -81,7 +93,7 @@ bit-ecp5:
 	symbiflow bit --oci-engine $(ENGINE) --part $(ECP5) -o build-ecp5 ecp5
 
 #
-# Programation
+# Programation examples
 #
 
 pgm-ice40:
@@ -89,18 +101,6 @@ pgm-ice40:
 
 pgm-ecp5:
 	symbiflow pgm --oci-engine docker --part $(ECP5) -o build-ecp5 ecp5
-
-#
-# Complete flow test cases
-#
-
-all:
-
-all-ice40:
-	symbiflow all --oci-engine docker --part $(ICE40) \
-		--vlog $(VLOGDIR)/blink.v \
-		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
-		--top Blink -o build-ice40 ice40
 
 #
 # Clean

@@ -21,7 +21,6 @@ jobs:
         docker pull hdlc/nextpnr:ecp5
         docker pull hdlc/icestorm
         docker pull hdlc/prjtrellis
-        docker pull hdlc/prog
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -30,5 +29,5 @@ jobs:
       run: |
         pip install pytest
         pip install .
-    - name: Test
-      run: make -C test
+    - name: Run examples
+      run: make -C examples
