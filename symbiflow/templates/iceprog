@@ -1,1 +1,1 @@
-iceprog  {outdir}/{project}.bit
+{command} {outdir}/{project}.bit

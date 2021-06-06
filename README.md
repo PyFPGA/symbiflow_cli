@@ -19,4 +19,4 @@ A CLI utility which solves **HDL-to-bitstream** based on FOSS.
 pip3 install -e .
 ```
 
-> **NOTE:** instructions to test in hardware (IceStick) [here](test).
+> **NOTE:** instructions to test in hardware (IceStick) [here](examples).

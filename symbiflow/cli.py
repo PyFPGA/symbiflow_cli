@@ -18,20 +18,22 @@ from symbiflow import __version__ as version
 from symbiflow.symbiflow import SymbiFlow
 
 
-ALL_DESC = 'Performs from synthesis to bitstream generation'
-SYN_DESC = 'Performs synthesis'
-IMP_DESC = 'Performs implementation'
-BIT_DESC = 'Performs bitstream generation'
-PGM_DESC = 'Performs programming'
+_ALL_DESC = 'Performs from synthesis to bitstream generation'
+_SYN_DESC = 'Performs synthesis'
+_IMP_DESC = 'Performs implementation'
+_BIT_DESC = 'Performs bitstream generation'
+_PGM_DESC = 'Performs programming'
 
-DEF_PART = 'hx8k-ct256'
-DEF_OUTDIR = '.'
-DEF_OCI_OPTIONS = '-v $HOME:$HOME -w $PWD'
+_DEF_PROJECT = 'symbiflow'
+_DEF_PART = 'hx8k-ct256'
+_DEF_OUTDIR = '.'
+_DEF_OCI_VOLUMES = ['$HOME:$HOME']
+_DEF_OCI_WORK = '$PWD'
 
-COMMANDS = ['all', 'syn', 'imp', 'bit', 'pgm']
+_COMMANDS = ['all', 'syn', 'imp', 'bit', 'pgm']
 
 
-def cli():
+def main():
     """Parse the CLI arguments"""
 
     #
@@ -43,35 +45,46 @@ def cli():
     args_shared = argparse.ArgumentParser(add_help=False)
 
     args_shared.add_argument(
-        'project',
-        help='basename for generated files'
+        '--project',
+        metavar='PROJECT',
+        default=_DEF_PROJECT,
+        help='basename for generated files [{}]'.format(_DEF_PROJECT)
     )
 
     args_shared.add_argument(
         '-p', '--part',
         metavar='FPGA',
-        default=DEF_PART,
-        help='name of the target FPGA part [{}]'.format(DEF_PART)
+        default=_DEF_PART,
+        help='name of the target FPGA part [{}]'.format(_DEF_PART)
     )
 
     args_shared.add_argument(
         '-o', '--outdir',
         metavar='PATH',
-        default=DEF_OUTDIR,
-        help='location for generated files [{}]'.format(DEF_OUTDIR)
+        default=_DEF_OUTDIR,
+        help='location for generated files [{}]'.format(_DEF_OUTDIR)
     )
 
     args_shared.add_argument(
         "--oci-engine",
-        choices=['none', 'docker', 'podman'],
-        help='OCI engine internally employed'
+        default=None,
+        choices=[None, 'docker', 'podman'],
+        help='OCI engine internally employed [None]'
     )
 
     args_shared.add_argument(
-        "--oci-options",
-        metavar='OPTIONS_BETWEEN_QUOTATION_MARKS',
-        default=DEF_OCI_OPTIONS,
-        help='options for the OCI engine [{}]'.format(DEF_OCI_OPTIONS)
+        "--oci-volumes",
+        metavar='HOST-DIR:CONT-DIR',
+        nargs='*',
+        default=_DEF_OCI_VOLUMES,
+        help='volumes for the OCI engine [{}]'.format(_DEF_OCI_VOLUMES)
+    )
+
+    args_shared.add_argument(
+        "--oci-work",
+        metavar='WORK',
+        default=_DEF_OCI_WORK,
+        help='working directory for the OCI engine [{}]'.format(_DEF_OCI_WORK)
     )
 
     # Arguments for synthesis
@@ -171,36 +184,36 @@ def cli():
 
     subparsers.add_parser(
         'all',
-        description=ALL_DESC,
-        help=ALL_DESC,
+        description=_ALL_DESC,
+        help=_ALL_DESC,
         parents=[args_for_syn, args_for_imp, args_shared]
     )
 
     subparsers.add_parser(
         'syn',
-        description=SYN_DESC,
-        help=SYN_DESC,
+        description=_SYN_DESC,
+        help=_SYN_DESC,
         parents=[args_for_syn, args_shared]
     )
 
     subparsers.add_parser(
         'imp',
-        description=IMP_DESC,
-        help=IMP_DESC,
+        description=_IMP_DESC,
+        help=_IMP_DESC,
         parents=[args_for_imp, args_shared]
     )
 
     subparsers.add_parser(
         'bit',
-        description=BIT_DESC,
-        help=BIT_DESC,
+        description=_BIT_DESC,
+        help=_BIT_DESC,
         parents=[args_shared]
     )
 
     subparsers.add_parser(
         'pgm',
-        description=PGM_DESC,
-        help=PGM_DESC,
+        description=_PGM_DESC,
+        help=_PGM_DESC,
         parents=[args_shared]
     )
 
@@ -211,31 +224,30 @@ def cli():
     #
 
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
-    if args.command not in COMMANDS:
-        logging.critical('specify an available command %s', COMMANDS)
+    if args.command not in _COMMANDS:
+        logging.critical('specify an available command %s', _COMMANDS)
         sys.exit()
+    if args.command in ['all', 'syn']:
+        if args.vhdl == args.vlog == args.slog is None:
+            logging.critical('you must specify at least one HDL file')
+            sys.exit()
 
     #
     # Invoke the tools
     #
 
     prj = SymbiFlow(args.project, args.part, args.outdir)
-    prj.set_oci(args.oci_engine, args.oci_options)
-    if args.command == 'all':
+    prj.set_oci(args.oci_engine, args.oci_volumes, args.oci_work)
+    if args.command in ['all', 'syn']:
         prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
                       args.param, args.arch, args.define, args.include)
+    if args.command in ['all', 'imp']:
         prj.implementation(args.icf)
+    if args.command in ['all', 'bit']:
         prj.bitstream()
-    elif args.command == 'syn':
-        prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
-                      args.param, args.arch, args.define, args.include)
-    elif args.command == 'imp':
-        prj.implementation(args.icf)
-    elif args.command == 'bit':
-        prj.bitstream()
-    else:  # 'pgm':
+    if args.command == 'pgm':
         prj.programming()
 
 
 if __name__ == "__main__":
-    cli()
+    main()

@@ -13,85 +13,7 @@ CONSDIR = ../resources/constraints/$(BOARD)
 test: all syn imp bit
 
 #
-# Synthesis test cases
-#
-
-syn: vhdl-simple vhdl-complex vlog-simple vlog-complex syn-ice40 syn-ecp5
-
-vhdl-simple:
-	symbiflow syn --oci-engine $(ENGINE) \
-		--vhdl $(VHDLDIR)/blink.vhdl \
-		--top Blink -o build-$@ $@
-
-vhdl-complex:
-	symbiflow syn --oci-engine $(ENGINE) \
-		--vhdl \
-			$(VHDLDIR)/blink.vhdl,blink_lib \
-			$(VHDLDIR)/blink_pkg.vhdl,blink_lib \
-			$(VHDLDIR)/top.vhdl \
-		--top Top -o build-$@ $@
-
-vlog-simple:
-	symbiflow syn --oci-engine $(ENGINE) \
-		--vlog $(VLOGDIR)/blink.v \
-		--top Blink -o build-$@ $@
-
-vlog-complex:
-	symbiflow syn --oci-engine $(ENGINE) \
-		--vlog \
-			$(VLOGDIR)/blink.v \
-			$(VLOGDIR)/top.v \
-		--top Top -o build-$@ $@
-
-syn-ice40:
-	symbiflow syn --oci-engine $(ENGINE) --part $(ICE40) \
-		--vlog $(VLOGDIR)/blink.v \
-		--top Blink -o build-ice40 ice40
-
-syn-ecp5:
-	symbiflow syn --oci-engine $(ENGINE) --part $(ECP5) \
-		--vlog $(VLOGDIR)/blink.v \
-		--top Blink -o build-ecp5 ecp5
-
-#
-# Implementation test cases
-#
-
-imp: imp-ice40 imp-ecp5
-
-imp-ice40:
-	symbiflow imp --oci-engine $(ENGINE) --part $(ICE40) \
-		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
-		-o build-ice40 ice40
-
-imp-ecp5:
-	symbiflow imp --oci-engine $(ENGINE) --part $(ECP5) \
-	-o build-ecp5 ecp5
-
-#
-# Bitstream generation test cases
-#
-
-bit: bit-ice40 bit-ecp5
-
-bit-ice40:
-	symbiflow bit --oci-engine $(ENGINE) --part $(ICE40) -o build-ice40 ice40
-
-bit-ecp5:
-	symbiflow bit --oci-engine $(ENGINE) --part $(ECP5) -o build-ecp5 ecp5
-
-#
-# Programation
-#
-
-pgm-ice40:
-	symbiflow pgm --oci-engine docker --part $(ICE40) -o build-ice40 ice40
-
-pgm-ecp5:
-	symbiflow pgm --oci-engine docker --part $(ECP5) -o build-ecp5 ecp5
-
-#
-# Complete flow test cases
+# Complete flow examples
 #
 
 all:
@@ -100,7 +22,85 @@ all-ice40:
 	symbiflow all --oci-engine docker --part $(ICE40) \
 		--vlog $(VLOGDIR)/blink.v \
 		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
-		--top Blink -o build-ice40 ice40
+		--top Blink -o build-ice40 --project ice40
+
+#
+# Synthesis examples
+#
+
+syn: vhdl-simple vhdl-complex vlog-simple vlog-complex syn-ice40 syn-ecp5
+
+vhdl-simple:
+	symbiflow syn --oci-engine $(ENGINE) \
+		--vhdl $(VHDLDIR)/blink.vhdl \
+		--top Blink -o build-$@ --project $@
+
+vhdl-complex:
+	symbiflow syn --oci-engine $(ENGINE) \
+		--vhdl \
+			$(VHDLDIR)/blink.vhdl,blink_lib \
+			$(VHDLDIR)/blink_pkg.vhdl,blink_lib \
+			$(VHDLDIR)/top.vhdl \
+		--top Top -o build-$@ --project $@
+
+vlog-simple:
+	symbiflow syn --oci-engine $(ENGINE) \
+		--vlog $(VLOGDIR)/blink.v \
+		--top Blink -o build-$@ --project $@
+
+vlog-complex:
+	symbiflow syn --oci-engine $(ENGINE) \
+		--vlog \
+			$(VLOGDIR)/blink.v \
+			$(VLOGDIR)/top.v \
+		--top Top -o build-$@ --project $@
+
+syn-ice40:
+	symbiflow syn --oci-engine $(ENGINE) --part $(ICE40) \
+		--vlog $(VLOGDIR)/blink.v \
+		--top Blink -o build-ice40 --project ice40
+
+syn-ecp5:
+	symbiflow syn --oci-engine $(ENGINE) --part $(ECP5) \
+		--vlog $(VLOGDIR)/blink.v \
+		--top Blink -o build-ecp5 --project ecp5
+
+#
+# Implementation examples
+#
+
+imp: imp-ice40 imp-ecp5
+
+imp-ice40:
+	symbiflow imp --oci-engine $(ENGINE) --part $(ICE40) \
+		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
+		-o build-ice40 --project ice40
+
+imp-ecp5:
+	symbiflow imp --oci-engine $(ENGINE) --part $(ECP5) \
+	-o build-ecp5 --project ecp5
+
+#
+# Bitstream generation examples
+#
+
+bit: bit-ice40 bit-ecp5
+
+bit-ice40:
+	symbiflow bit --oci-engine $(ENGINE) --part $(ICE40) -o build-ice40 --project ice40
+
+bit-ecp5:
+	symbiflow bit --oci-engine $(ENGINE) --part $(ECP5) -o build-ecp5 --project ecp5
+
+#
+# Programation examples
+#
+
+pgm-ice40:
+	symbiflow pgm --oci-engine docker --part $(ICE40) -o build-ice40 --project ice40
+
+pgm-ecp5:
+	symbiflow pgm --oci-engine docker --part $(ECP5) -o build-ecp5 --project ecp5
 
 #
 # Clean

@@ -1,1 +1,1 @@
-icepack {outdir}/{project}.asc {outdir}/{project}.bit
+{command} {outdir}/{project}.asc {outdir}/{project}.bit
