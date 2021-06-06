@@ -21,7 +21,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'symbiflow = symbiflow.cli:cli',
+            'symbiflow = symbiflow.cli:main',
             'symbiconf = symbiflow.oci:main'
         ],
     },
