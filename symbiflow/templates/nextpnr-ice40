@@ -1,1 +1,1 @@
-nextpnr-ice40 --{device} --package {package} --json {outdir}/{project}.json --pcf {outdir}/{project}.pcf --pcf-allow-unconstrained --asc {outdir}/{project}.asc
+{command} --{device} --package {package} --json {outdir}/{project}.json --pcf {outdir}/{project}.pcf --pcf-allow-unconstrained --asc {outdir}/{project}.asc

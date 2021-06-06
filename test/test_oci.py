@@ -11,7 +11,7 @@ from symbiflow.oci import OCI
         ('nextpnr-ecp5', 'docker run --rm -v $HOME:$HOME -w $PWD hdlc/nextpnr:ecp5 nextpnr-ecp5'),
         ('icepack', 'docker run --rm -v $HOME:$HOME -w $PWD hdlc/icestorm icepack'),
         ('icetime', 'docker run --rm -v $HOME:$HOME -w $PWD hdlc/icestorm icetime'),
-        ('iceprog', 'docker run --rm -v $HOME:$HOME -w $PWD --device /dev/bus/usb hdlc/icestorm iceprog'),
+        ('iceprog', 'docker run --rm -v $HOME:$HOME -w $PWD --device /dev/bus/usb hdlc/prog iceprog'),
         ('ecppack', 'docker run --rm -v $HOME:$HOME -w $PWD hdlc/prjtrellis ecppack'),
         ('openocd', 'docker run --rm -v $HOME:$HOME -w $PWD --device /dev/bus/usb hdlc/prog openocd')
     ]

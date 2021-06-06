@@ -27,7 +27,8 @@ _PGM_DESC = 'Performs programming'
 _DEF_PROJECT = 'symbiflow'
 _DEF_PART = 'hx8k-ct256'
 _DEF_OUTDIR = '.'
-_DEF_OCI_OPTIONS = '-v $HOME:$HOME -w $PWD'
+_DEF_OCI_VOLUMES = ['$HOME:$HOME']
+_DEF_OCI_WORK = '$PWD'
 
 _COMMANDS = ['all', 'syn', 'imp', 'bit', 'pgm']
 
@@ -66,15 +67,24 @@ def main():
 
     args_shared.add_argument(
         "--oci-engine",
-        choices=['none', 'docker', 'podman'],
-        help='OCI engine internally employed'
+        default=None,
+        choices=[None, 'docker', 'podman'],
+        help='OCI engine internally employed [None]'
     )
 
     args_shared.add_argument(
-        "--oci-options",
-        metavar='OPTIONS_BETWEEN_QUOTATION_MARKS',
-        default=_DEF_OCI_OPTIONS,
-        help='options for the OCI engine [{}]'.format(_DEF_OCI_OPTIONS)
+        "--oci-volumes",
+        metavar='HOST-DIR:CONT-DIR',
+        nargs='*',
+        default=_DEF_OCI_VOLUMES,
+        help='volumes for the OCI engine [{}]'.format(_DEF_OCI_VOLUMES)
+    )
+
+    args_shared.add_argument(
+        "--oci-work",
+        metavar='WORK',
+        default=_DEF_OCI_WORK,
+        help='working directory for the OCI engine [{}]'.format(_DEF_OCI_WORK)
     )
 
     # Arguments for synthesis
@@ -227,20 +237,15 @@ def main():
     #
 
     prj = SymbiFlow(args.project, args.part, args.outdir)
-    prj.set_oci(args.oci_engine, args.oci_options)
-    if args.command == 'all':
+    prj.set_oci(args.oci_engine, args.oci_volumes, args.oci_work)
+    if args.command in ['all', 'syn']:
         prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
                       args.param, args.arch, args.define, args.include)
+    if args.command in ['all', 'imp']:
         prj.implementation(args.icf)
+    if args.command in ['all', 'bit']:
         prj.bitstream()
-    elif args.command == 'syn':
-        prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
-                      args.param, args.arch, args.define, args.include)
-    elif args.command == 'imp':
-        prj.implementation(args.icf)
-    elif args.command == 'bit':
-        prj.bitstream()
-    else:  # 'pgm':
+    if args.command == 'pgm':
         prj.programming()
 
 

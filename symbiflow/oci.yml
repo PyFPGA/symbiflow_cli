@@ -24,7 +24,7 @@ tools:
     container: hdlc/icestorm
   iceprog:
     name:      iceprog
-    container: hdlc/icestorm
+    container: hdlc/prog
     options:   "--device /dev/bus/usb"
   ecppack:
     name:      ecppack

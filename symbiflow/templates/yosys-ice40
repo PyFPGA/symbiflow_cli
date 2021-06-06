@@ -1,4 +1,4 @@
-yosys -Q {module} -p '
+{command} -Q {module} -p '
 {includes};
 {files};
 {params};

@@ -1,0 +1,1 @@
+{command} -a --std=08 -fsynopsys -fexplicit -frelaxed --workdir={outdir} -P{outdir} {library} {file}

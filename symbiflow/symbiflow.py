@@ -18,6 +18,9 @@ import subprocess
 from pathlib import Path
 
 
+from symbiflow.oci import OCI
+
+
 class SymbiFlow:
     """Class which solves HDL-to-bitstream based on FOSS."""
 
@@ -26,14 +29,14 @@ class SymbiFlow:
         self.project = project
         self.part = get_info(part)
         self.outdir = outdir
-        self.engine = 'none'
-        self.options = None
+        self.oci = OCI()
         Path(self.outdir).mkdir(parents=True, exist_ok=True)
 
-    def set_oci(self, engine, options):
+    def set_oci(self, engine, volumes, work):
         """Set the OCI engine and its options."""
-        self.engine = engine
-        self.options = options
+        self.oci.set_engine(engine)
+        self.oci.set_volumes(volumes)
+        self.oci.set_work(work)
 
     # pylint: disable=too-many-arguments
     # pylint: disable=unused-argument
@@ -49,18 +52,13 @@ class SymbiFlow:
         # print(define)
         # print(param)
         # print(include)
-        # Prepare OCI
-        oci = read_template('oci').format(
-            engine=self.engine,
-            options=self.options,
-            container='hdlc/ghdl:yosys'
-        ) + ' ' if self.engine is not None else ''
         # Prepare and run GHDL analysis
         if vhdl is not None:
             for file in vhdl:
                 aux = file.split(',')
                 library = '--work={}'.format(aux[1]) if len(aux) > 1 else ''
-                cmd = oci + read_template('ghdl-a').format(
+                cmd = read_template('ghdl-analysis').format(
+                     command=self.oci.get_command('ghdl'),
                      outdir=self.outdir,
                      library=library,
                      file=aux[0]
@@ -73,13 +71,14 @@ class SymbiFlow:
                 files.append('read_verilog {}'.format(file))
         if vhdl is not None:
             files = [read_template('ghdl-synth').format(
+                 command='ghdl',
                  outdir=self.outdir,
                  unit=top,
                  arch=''
             )]
         family = self.part['family']
-        cmd = oci
-        cmd += read_template('yosys-{}'.format(family)).format(
+        cmd = read_template('yosys-{}'.format(family)).format(
+            command=self.oci.get_command('yosys'),
             module='-m ghdl' if vhdl is not None else '',
             includes='',
             files='; '.join(files),
@@ -99,12 +98,8 @@ class SymbiFlow:
         else:  # family == 'ecp5'
             ext = 'lpf'
         self._create_constraint(icf, ext)
-        cmd = read_template('oci').format(
-            engine=self.engine,
-            options=self.options,
-            container='hdlc/nextpnr:{}'.format(family)
-        ) + ' ' if self.engine is not None else ''
-        cmd += read_template('nextpnr-{}'.format(family)).format(
+        cmd = read_template('nextpnr-{}'.format(family)).format(
+            command=self.oci.get_command('nextpnr-{}'.format(family)),
             device=self.part['device'],
             package=self.part['package'],
             outdir=self.outdir,
@@ -112,12 +107,8 @@ class SymbiFlow:
         )
         _run(cmd)
         if family == 'ice40':
-            cmd = read_template('oci').format(
-                engine=self.engine,
-                options=self.options,
-                container='hdlc/icestorm'
-            ) + ' ' if self.engine is not None else ''
-            cmd += read_template('icetime').format(
+            cmd = read_template('icetime').format(
+                command=self.oci.get_command('icetime'),
                 device=self.part['device'],
                 outdir=self.outdir,
                 project=self.project
@@ -141,23 +132,15 @@ class SymbiFlow:
         """Performs bitstream generation."""
         family = self.part['family']
         if family == 'ice40':
-            cmd = read_template('oci').format(
-                engine=self.engine,
-                options=self.options,
-                container='hdlc/icestorm'
-            ) + ' ' if self.engine is not None else ''
-            cmd += read_template('icepack').format(
+            cmd = read_template('icepack').format(
+                command=self.oci.get_command('icepack'),
                 outdir=self.outdir,
                 project=self.project
             )
             _run(cmd)
         else:  # family == 'ecp5'
-            cmd = read_template('oci').format(
-                engine=self.engine,
-                options=self.options,
-                container='hdlc/prjtrellis'
-            ) + ' ' if self.engine is not None else ''
-            cmd += read_template('ecppack').format(
+            cmd = read_template('ecppack').format(
+                command=self.oci.get_command('ecppack'),
                 outdir=self.outdir,
                 project=self.project
             )
@@ -167,12 +150,8 @@ class SymbiFlow:
         """Performs programation."""
         family = self.part['family']
         if family == 'ice40':
-            cmd = read_template('oci').format(
-                engine=self.engine,
-                options=self.options,
-                container='--device /dev/bus/usb hdlc/prog'
-            ) + ' ' if self.engine is not None else ''
-            cmd += read_template('iceprog').format(
+            cmd = read_template('iceprog').format(
+                command=self.oci.get_command('iceprog'),
                 outdir=self.outdir,
                 project=self.project
             )
