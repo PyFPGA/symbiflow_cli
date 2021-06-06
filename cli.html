@@ -62,15 +62,12 @@
                      [--include [PATH [PATH ...]]] [--vhdl FILE[,LIBRARY]
                      [FILE[,LIBRARY] ...]] [--vlog FILE [FILE ...]]
                      [--slog FILE [FILE ...]] [--scf FILE [FILE ...]]
-                     [--icf FILE [FILE ...]] [-p FPGA] [-o PATH]
-                     [--oci-engine {none,docker,podman}]
-                     [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     project
+                     [--icf FILE [FILE ...]] [--project PROJECT] [-p FPGA]
+                     [-o PATH] [--oci-engine {None,docker,podman}]
+                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
+                     [--oci-work WORK]
 
 Performs from synthesis to bitstream generation
-
-positional arguments:
-  project               basename for generated files
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -92,13 +89,15 @@ optional arguments:
                         Synthesis Constraint Files
   --icf FILE [FILE ...]
                         Implementation Constraint Files
+  --project PROJECT     basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
-  --oci-engine {none,docker,podman}
-                        OCI engine internally employed
-  --oci-options OPTIONS_BETWEEN_QUOTATION_MARKS
-                        options for the OCI engine [-v $HOME:$HOME -w $PWD]
+  --oci-engine {None,docker,podman}
+                        OCI engine internally employed [None]
+  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
+                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </div>
@@ -110,14 +109,12 @@ optional arguments:
                      [--include [PATH [PATH ...]]] [--vhdl FILE[,LIBRARY]
                      [FILE[,LIBRARY] ...]] [--vlog FILE [FILE ...]]
                      [--slog FILE [FILE ...]] [--scf FILE [FILE ...]]
-                     [-p FPGA] [-o PATH] [--oci-engine {none,docker,podman}]
-                     [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     project
+                     [--project PROJECT] [-p FPGA] [-o PATH]
+                     [--oci-engine {None,docker,podman}]
+                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
+                     [--oci-work WORK]
 
 Performs synthesis
-
-positional arguments:
-  project               basename for generated files
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -137,87 +134,86 @@ optional arguments:
                         System Verilog files
   --scf FILE [FILE ...]
                         Synthesis Constraint Files
+  --project PROJECT     basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
-  --oci-engine {none,docker,podman}
-                        OCI engine internally employed
-  --oci-options OPTIONS_BETWEEN_QUOTATION_MARKS
-                        options for the OCI engine [-v $HOME:$HOME -w $PWD]
+  --oci-engine {None,docker,podman}
+                        OCI engine internally employed [None]
+  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
+                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </div>
 <div class="section" id="symbiflow-imp">
 <h2>symbiflow imp<a class="headerlink" href="#symbiflow-imp" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow imp [-h] [--icf FILE [FILE ...]] [-p FPGA] [-o PATH]
-                     [--oci-engine {none,docker,podman}]
-                     [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     project
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow imp [-h] [--icf FILE [FILE ...]] [--project PROJECT]
+                     [-p FPGA] [-o PATH] [--oci-engine {None,docker,podman}]
+                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
+                     [--oci-work WORK]
 
 Performs implementation
-
-positional arguments:
-  project               basename for generated files
 
 optional arguments:
   -h, --help            show this help message and exit
   --icf FILE [FILE ...]
                         Implementation Constraint Files
+  --project PROJECT     basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
-  --oci-engine {none,docker,podman}
-                        OCI engine internally employed
-  --oci-options OPTIONS_BETWEEN_QUOTATION_MARKS
-                        options for the OCI engine [-v $HOME:$HOME -w $PWD]
+  --oci-engine {None,docker,podman}
+                        OCI engine internally employed [None]
+  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
+                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </div>
 <div class="section" id="symbiflow-bit">
 <h2>symbiflow bit<a class="headerlink" href="#symbiflow-bit" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow bit [-h] [-p FPGA] [-o PATH]
-                     [--oci-engine {none,docker,podman}]
-                     [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     project
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow bit [-h] [--project PROJECT] [-p FPGA] [-o PATH]
+                     [--oci-engine {None,docker,podman}]
+                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
+                     [--oci-work WORK]
 
 Performs bitstream generation
 
-positional arguments:
-  project               basename for generated files
-
 optional arguments:
   -h, --help            show this help message and exit
+  --project PROJECT     basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
-  --oci-engine {none,docker,podman}
-                        OCI engine internally employed
-  --oci-options OPTIONS_BETWEEN_QUOTATION_MARKS
-                        options for the OCI engine [-v $HOME:$HOME -w $PWD]
+  --oci-engine {None,docker,podman}
+                        OCI engine internally employed [None]
+  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
+                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </div>
 <div class="section" id="symbiflow-pgm">
 <h2>symbiflow pgm<a class="headerlink" href="#symbiflow-pgm" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pgm [-h] [-p FPGA] [-o PATH]
-                     [--oci-engine {none,docker,podman}]
-                     [--oci-options OPTIONS_BETWEEN_QUOTATION_MARKS]
-                     project
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pgm [-h] [--project PROJECT] [-p FPGA] [-o PATH]
+                     [--oci-engine {None,docker,podman}]
+                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
+                     [--oci-work WORK]
 
 Performs programming
 
-positional arguments:
-  project               basename for generated files
-
 optional arguments:
   -h, --help            show this help message and exit
+  --project PROJECT     basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
-  --oci-engine {none,docker,podman}
-                        OCI engine internally employed
-  --oci-options OPTIONS_BETWEEN_QUOTATION_MARKS
-                        options for the OCI engine [-v $HOME:$HOME -w $PWD]
+  --oci-engine {None,docker,podman}
+                        OCI engine internally employed [None]
+  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
+                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </div>
