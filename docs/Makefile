@@ -22,3 +22,6 @@ snippets:
 		symbiflow $$cmd -h > help-$$cmd.txt ; \
 	done
 	@echo "$@ generated"
+
+clean:
+	rm -rf $(BUILDDIR) *.txt

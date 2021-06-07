@@ -5,3 +5,4 @@ SymbiFlow CLI's documentation!
 
 .. toctree::
    cli.rst
+   api.rst
