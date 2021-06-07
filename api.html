@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>API Reference &#8212; SymbiFlow CLI  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Command-line Interface" href="cli.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="cli.html" title="Command-line Interface"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-symbiflow.symbiflow">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-symbiflow.symbiflow" title="Permalink to this headline">¶</a></h1>
+<p>symbiflow.symbiflow</p>
+<p>A class which provides an API to solves HDL-to-bitstream based on FOSS.</p>
+<dl class="class">
+<dt id="symbiflow.symbiflow.SymbiFlow">
+<em class="property">class </em><code class="sig-prename descclassname">symbiflow.symbiflow.</code><code class="sig-name descname">SymbiFlow</code><span class="sig-paren">(</span><em class="sig-param">project='symbiflow'</em>, <em class="sig-param">part='hx8k-ct256'</em>, <em class="sig-param">outdir='.'</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solves HDL-to-bitstream based on FOSS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project</strong> – the basename for generated files</p></li>
+<li><p><strong>part</strong> – name of the target FPGA part</p></li>
+<li><p><strong>outdir</strong> – location for generated files</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="symbiflow.symbiflow.SymbiFlow.bitstream">
+<code class="sig-name descname">bitstream</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.bitstream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs bitstream generation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="symbiflow.symbiflow.SymbiFlow.implementation">
+<code class="sig-name descname">implementation</code><span class="sig-paren">(</span><em class="sig-param">icf=None</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.implementation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs implementation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>icf</strong> (<em>list</em>) – Implementation Constraint Files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="symbiflow.symbiflow.SymbiFlow.programming">
+<code class="sig-name descname">programming</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.programming" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs programation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="symbiflow.symbiflow.SymbiFlow.set_oci">
+<code class="sig-name descname">set_oci</code><span class="sig-paren">(</span><em class="sig-param">engine</em>, <em class="sig-param">volumes</em>, <em class="sig-param">work</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.set_oci" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the OCI engine and its options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>engine</strong> – OCI engine</p></li>
+<li><p><strong>volumes</strong> (<em>list</em>) – volumes for the OCI engine</p></li>
+<li><p><strong>work</strong> – working directory for the OCI engine</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="symbiflow.symbiflow.SymbiFlow.synthesis">
+<code class="sig-name descname">synthesis</code><span class="sig-paren">(</span><em class="sig-param">top</em>, <em class="sig-param">vhdl=None</em>, <em class="sig-param">vlog=None</em>, <em class="sig-param">slog=None</em>, <em class="sig-param">scf=None</em>, <em class="sig-param">param=None</em>, <em class="sig-param">arch=None</em>, <em class="sig-param">define=None</em>, <em class="sig-param">include=None</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.synthesis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs synthesis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>top</strong> – name of the top-level entity/module</p></li>
+<li><p><strong>vhdl</strong> (<em>list</em>) – VHDL files (<cite>FILE[,LIBRARY]</cite>)</p></li>
+<li><p><strong>vlog</strong> (<em>list</em>) – Verilog files</p></li>
+<li><p><strong>slog</strong> (<em>list</em>) – System Verilog files</p></li>
+<li><p><strong>scf</strong> (<em>list</em>) – Synthesis Constraint Files</p></li>
+<li><p><strong>param</strong> (<em>list</em>) – specify top-level Generics/Parameters (<cite>PARAM:VALUE</cite>)</p></li>
+<li><p><strong>arch</strong> – specify a VHDL top-level Architecture</p></li>
+<li><p><strong>define</strong> (<em>list</em>) – specify [System] Verilog Defines (<cite>DEFINE:VALUE</cite>)</p></li>
+<li><p><strong>include</strong> (<em>list</em>) – specify [System] Verilog Include Paths</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>FileNotFoundError</strong> – when no HDL files are provided</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cli.html"
+                        title="previous chapter">Command-line Interface</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="cli.html" title="Command-line Interface"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Rodrigo A. Melo.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>
