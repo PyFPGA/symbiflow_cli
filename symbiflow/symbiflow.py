@@ -38,6 +38,13 @@ class SymbiFlow:
         self.oci = OCI()
         Path(self.outdir).mkdir(parents=True, exist_ok=True)
 
+    def set_part(self, part):
+        """Set the target FPGA part.
+
+        :param part: name of the target FPGA part
+        """
+        self.part = get_info(part)
+
     def set_oci(self, engine, volumes, work):
         """Set the OCI engine and its options.
 
@@ -51,7 +58,6 @@ class SymbiFlow:
         self.oci.set_work(work)
 
     # pylint: disable=too-many-arguments
-    # pylint: disable=too-many-locals
     def synthesis(self, top, vhdl=None, vlog=None, slog=None, scf=None,
                   param=None, arch=None, define=None, include=None):
         """Performs synthesis.
@@ -112,8 +118,7 @@ class SymbiFlow:
                  unit=top,
                  arch=''
             )]
-        family = self.part['family']
-        cmd = _template('yosys-{}'.format(family)).format(
+        cmd = _template('yosys-{}'.format(self.part['family'])).format(
             command=self.oci.get_command('yosys'),
             module='-m ghdl' if vhdl is not None else '',
             includes='',
