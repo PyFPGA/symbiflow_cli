@@ -17,6 +17,8 @@ The `SymbiFlow CLI <https://github.com/PyFPGA/symbiflow_cli>`__ proyect aims to 
     By default, it assumes that the tools employed under the hood are installed and ready to be used. Alternatively, an :wikipedia:`OCI <Open_Container_Initiative>` engine such as Docker or Podman could be used, based on containers from the `hdl/containers <https://hdl.github.io/containers>`__ Project.
 
 .. toctree::
-   cli.rst
+   installation
+   user-guide
+   examples
+   devices
    api.rst
-   devices.rst

@@ -27,4 +27,7 @@ devices:
 	python3 devices.py
 
 clean:
-	rm -rf $(BUILDDIR) *.txt
+	rm -rf $(BUILDDIR)
+
+clean-all: clean
+	rm -f *.txt
