@@ -10,13 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Build
-      uses: ammaraskar/sphinx-action@master
       with:
-        docs-folder: "docs/"
-        pre-build-command: |
-          pip install -e .
-          make -C docs devices
+        submodules: true
+        fetch-depth: 0
+    - name: Pull container images
+      run: |
+        docker pull hdlc/ghdl:yosys
+        docker pull hdlc/nextpnr:ice40
+        docker pull hdlc/nextpnr:ecp5
+    - name: Install dependencies
+      run: |
+        pip install sphinx
+        pip install .
+    - name: Build docs
+      run: |
+        make -C docs devices
+        make -C docs html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
