@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>SymbiFlow CLI’s documentation! &#8212; SymbiFlow CLI  documentation</title>
+    <title>Introduction &#8212; SymbiFlow CLI  documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -16,7 +16,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Command-line Interface" href="cli.html" /> 
+    <link rel="next" title="Installation" href="installation.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -28,7 +28,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="cli.html" title="Command-line Interface"
+          <a href="installation.html" title="Installation"
              accesskey="N">next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">SymbiFlow CLI  documentation</a> &#187;</li> 
       </ul>
@@ -39,17 +39,42 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="symbiflow-cli-s-documentation">
-<h1>SymbiFlow CLI’s documentation!<a class="headerlink" href="#symbiflow-cli-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This project is a proposal for a <a class="reference external" href="https://symbiflow.github.io/">SymbiFlow</a> command-line Interface, but is not directly related, neither endorsed, by it.</p>
+</div>
+<p>The <a class="reference external" href="https://github.com/PyFPGA/symbiflow_cli">SymbiFlow CLI</a> proyect aims to provide a CLI utility to solves <strong>HDL-to-bitstream</strong> for FPGAs, based on <a class="reference external" href="https://en.wikipedia.org/wiki/Free_and_open-source_software">FLOSS</a>:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/YosysHQ/yosys">Yosys</a> is employed for the <em>Synthesis</em> of <strong>Verilog</strong> code, while <a class="reference external" href="https://github.com/YosysHQ/nextpnr">NextPnR</a> to perform <em>Place and Route</em>.</p></li>
+<li><p><a class="reference external" href="https://github.com/ghdl/ghdl">GHDL</a> and the <a class="reference external" href="https://github.com/ghdl/ghdl-yosys-plugin">ghdl-yosys-plugin</a> provide the <strong>VHDL</strong> support.</p></li>
+<li><p>Tools from the <a class="reference external" href="https://github.com/YosysHQ/icestorm">IceStorm</a> and <a class="reference external" href="https://github.com/YosysHQ/prjtrellis">Trellis</a> projects provide support for <strong>iCE40</strong> and <strong>ECP5</strong> devices.</p></li>
+<li><p>Ideally, it will also support <strong>System Verilog</strong> (through <a class="reference external" href="https://github.com/chipsalliance/Surelog">Surelog</a> and <a class="reference external" href="https://github.com/chipsalliance/UHDM">UHDM</a>), other <em>P&amp;R</em> tools (such as <a class="reference external" href="https://github.com/verilog-to-routing/vtr-verilog-to-routing">VPR</a>), and more devices (employing projects such as <a class="reference external" href="https://github.com/YosysHQ/apicula">Apicula</a>, <a class="reference external" href="https://github.com/Ravenslofty/mistral">Mistral</a>, <a class="reference external" href="https://github.com/gatecat/prjoxide">Oxide</a>, <a class="reference external" href="https://github.com/SymbiFlow/prjxray">XRay</a>, <a class="reference external" href="https://github.com/SymbiFlow/prjuray">URay</a>, and more!).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, it assumes that the tools employed under the hood are installed and ready to be used. Alternatively, an <a class="reference external" href="https://en.wikipedia.org/wiki/Open_Container_Initiative">OCI</a> engine such as Docker or Podman could be used, based on containers from the <a class="reference external" href="https://hdl.github.io/containers">hdl/containers</a> Project.</p>
+</div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command-line Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#symbiflow">symbiflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#symbiflow-all">symbiflow all</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#symbiflow-syn">symbiflow syn</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#symbiflow-imp">symbiflow imp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#symbiflow-bit">symbiflow bit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli.html#symbiflow-pgm">symbiflow pgm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user-guide.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#symbiflow">symbiflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#symbiflow-all">symbiflow all</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#symbiflow-syn">symbiflow syn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#symbiflow-imp">symbiflow imp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#symbiflow-bit">symbiflow bit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user-guide.html#symbiflow-pgm">symbiflow pgm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#icestick">icestick</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="devices.html">Supported devices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="devices.html#ice40-lattice">iCE40 (Lattice)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devices.html#ecp5-lattice">ECP5 (Lattice)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
@@ -64,8 +89,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Next topic</h4>
-  <p class="topless"><a href="cli.html"
-                        title="next chapter">Command-line Interface</a></p>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter">Installation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -97,7 +122,7 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="cli.html" title="Command-line Interface"
+          <a href="installation.html" title="Installation"
              >next</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">SymbiFlow CLI  documentation</a> &#187;</li> 
       </ul>

@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Examples &#8212; SymbiFlow CLI  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Supported devices" href="devices.html" />
+    <link rel="prev" title="User Guide" href="user-guide.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="devices.html" title="Supported devices"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="user-guide.html" title="User Guide"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following examples are ready to run from the examples directory of the project repository (<code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">&lt;EXAMPLE&gt;.sh</span> <span class="pre">[program]</span></code>, where the optional <code class="docutils literal notranslate"><span class="pre">program</span></code> parameter specifies if you want, or not, to program a connected board).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following examples are tested under GNU/Linux and using Docker (<a class="reference external" href="https://docs.docker.com/engine/install/">install instructions</a>).</p>
+</div>
+<div class="section" id="icestick">
+<h2>icestick<a class="headerlink" href="#icestick" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="o">-</span><span class="n">e</span> <span class="c1"># Exit immediately if a command exits with a non-zero status.</span>
+
+<span class="n">echo</span> <span class="s2">&quot;Synthesis (Verilog)&quot;</span>
+
+<span class="n">symbiflow</span> <span class="n">syn</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> \
+  <span class="o">--</span><span class="n">vlog</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">verilog</span><span class="o">/</span><span class="n">blink</span><span class="o">.</span><span class="n">v</span> \
+  <span class="o">--</span><span class="n">top</span> <span class="n">Blink</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+
+<span class="n">echo</span> <span class="s2">&quot;Implementation&quot;</span>
+
+<span class="n">symbiflow</span> <span class="n">imp</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> \
+  <span class="o">--</span><span class="n">icf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">clk</span><span class="o">.</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">led</span><span class="o">.</span><span class="n">pcf</span> \
+  <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+
+<span class="n">echo</span> <span class="s2">&quot;Bitstream generation&quot;</span>
+
+<span class="n">symbiflow</span> <span class="n">bit</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="s2">&quot;$1&quot;</span> <span class="o">==</span> <span class="s2">&quot;program&quot;</span> <span class="p">];</span> <span class="n">then</span>
+
+    <span class="n">echo</span> <span class="s2">&quot;Programation&quot;</span>
+
+    <span class="n">symbiflow</span> <span class="n">pgm</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+
+<span class="n">fi</span>
+
+<span class="n">echo</span> <span class="s2">&quot;From Synthesis to Bitstream generation in one step (VHDL)&quot;</span>
+
+<span class="n">symbiflow</span> <span class="nb">all</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> \
+  <span class="o">--</span><span class="n">vhdl</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">vhdl</span><span class="o">/</span><span class="n">blink</span><span class="o">.</span><span class="n">vhdl</span> \
+  <span class="o">--</span><span class="n">icf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">clk</span><span class="o">.</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">led</span><span class="o">.</span><span class="n">pcf</span> \
+  <span class="o">--</span><span class="n">top</span> <span class="n">Blink</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="s2">&quot;$1&quot;</span> <span class="o">==</span> <span class="s2">&quot;program&quot;</span> <span class="p">];</span> <span class="n">then</span>
+
+    <span class="n">echo</span> <span class="s2">&quot;Programation&quot;</span>
+
+    <span class="n">symbiflow</span> <span class="n">pgm</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+
+<span class="n">fi</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Examples</a><ul>
+<li><a class="reference internal" href="#icestick">icestick</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="user-guide.html"
+                        title="previous chapter">User Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="devices.html"
+                        title="next chapter">Supported devices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="devices.html" title="Supported devices"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="user-guide.html" title="User Guide"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Rodrigo A. Melo.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+    </div>
+  </body>
+</html>

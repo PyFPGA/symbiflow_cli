@@ -1,5 +1,5 @@
-Command-line Interface
-======================
+User Guide
+==========
 
 symbiflow
 ---------
