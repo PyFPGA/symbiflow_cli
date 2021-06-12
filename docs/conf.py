@@ -21,6 +21,7 @@ release = ''
 
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.extlinks',
 ]
 
 autodoc_default_options = {
@@ -123,3 +124,10 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
+
+# -- Sphinx.Ext.ExtLinks --------------------------------------------------
+
+extlinks = {
+    'wikipedia': ('https://en.wikipedia.org/wiki/%s', None),
+    'github':    ('https://github.com/%s', None),
+}
