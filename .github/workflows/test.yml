@@ -34,4 +34,4 @@ jobs:
     - name: Run examples
       run: |
         make -C examples
-        bash examples/icestick.sh
+        cd examples; bash icestick.sh
