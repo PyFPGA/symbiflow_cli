@@ -32,4 +32,6 @@ jobs:
     - name: Run test
       run: pytest
     - name: Run examples
-      run: make -C examples
+      run: |
+        make -C examples
+        bash examples/icestick.sh
