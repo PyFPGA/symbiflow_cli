@@ -14,7 +14,9 @@ jobs:
       uses: ammaraskar/sphinx-action@master
       with:
         docs-folder: "docs/"
-        pre-build-command: pip install -e .
+        pre-build-command: |
+          pip install -e .
+          make -C docs devices
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:

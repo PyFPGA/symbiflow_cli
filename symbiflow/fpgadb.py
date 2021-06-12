@@ -58,7 +58,7 @@ def get_info(part):
         package = aux[2]
     else:
         raise ValueError('Part must be DEVICE-PACKAGE')
-    if family == 'ice40' and device.endswith('4k'):
+    if family in ['lp4k', 'hx4k']:
         # See http://www.clifford.at/icestorm/
         device = device.replace('4', '8')
         package += ":4k"

@@ -19,7 +19,7 @@ test: all syn imp bit
 all:
 
 all-ice40:
-	symbiflow all --oci-engine docker --part $(ICE40) \
+	symbiflow all --oci-engine $(ENGINE) --part $(ICE40) \
 		--vlog $(VLOGDIR)/blink.v \
 		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
 		--top Blink -o build-ice40 --project ice40
@@ -97,10 +97,10 @@ bit-ecp5:
 #
 
 pgm-ice40:
-	symbiflow pgm --oci-engine docker --part $(ICE40) -o build-ice40 --project ice40
+	symbiflow pgm --oci-engine $(ENGINE) --part $(ICE40) -o build-ice40 --project ice40
 
 pgm-ecp5:
-	symbiflow pgm --oci-engine docker --part $(ECP5) -o build-ecp5 --project ecp5
+	symbiflow pgm --oci-engine $(ENGINE) --part $(ECP5) -o build-ecp5 --project ecp5
 
 #
 # Clean
