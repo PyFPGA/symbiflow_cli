@@ -1,18 +1,19 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>API Reference &#8212; SymbiFlow CLI  documentation</title>
-    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
     
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,7 +31,8 @@
         <li class="right" >
           <a href="devices.html" title="Supported devices"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">API Reference</a></li> 
       </ul>
     </div>  
 
@@ -39,13 +41,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-symbiflow.symbiflow">
+  <section id="module-symbiflow.symbiflow">
 <span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-symbiflow.symbiflow" title="Permalink to this headline">¶</a></h1>
 <p>symbiflow.symbiflow</p>
 <p>A class which provides an API to solves HDL-to-bitstream based on FOSS.</p>
-<dl class="class">
-<dt id="symbiflow.symbiflow.SymbiFlow">
-<em class="property">class </em><code class="sig-prename descclassname">symbiflow.symbiflow.</code><code class="sig-name descname">SymbiFlow</code><span class="sig-paren">(</span><em class="sig-param">project='symbiflow'</em>, <em class="sig-param">part='hx8k-ct256'</em>, <em class="sig-param">outdir='.'</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">symbiflow.symbiflow.</span></span><span class="sig-name descname"><span class="pre">SymbiFlow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'symbiflow'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">part</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hx8k-ct256'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Solves HDL-to-bitstream based on FOSS.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -56,15 +58,15 @@
 </ul>
 </dd>
 </dl>
-<dl class="method">
-<dt id="symbiflow.symbiflow.SymbiFlow.bitstream">
-<code class="sig-name descname">bitstream</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.bitstream" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow.bitstream">
+<span class="sig-name descname"><span class="pre">bitstream</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.bitstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs bitstream generation.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="symbiflow.symbiflow.SymbiFlow.implementation">
-<code class="sig-name descname">implementation</code><span class="sig-paren">(</span><em class="sig-param">icf=None</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.implementation" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow.implementation">
+<span class="sig-name descname"><span class="pre">implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.implementation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs implementation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -73,15 +75,15 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="symbiflow.symbiflow.SymbiFlow.programming">
-<code class="sig-name descname">programming</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.programming" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow.programming">
+<span class="sig-name descname"><span class="pre">programming</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.programming" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs programation.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="symbiflow.symbiflow.SymbiFlow.set_oci">
-<code class="sig-name descname">set_oci</code><span class="sig-paren">(</span><em class="sig-param">engine</em>, <em class="sig-param">volumes</em>, <em class="sig-param">work</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.set_oci" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow.set_oci">
+<span class="sig-name descname"><span class="pre">set_oci</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">engine</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">volumes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">work</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.set_oci" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the OCI engine and its options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -94,9 +96,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="symbiflow.symbiflow.SymbiFlow.set_part">
-<code class="sig-name descname">set_part</code><span class="sig-paren">(</span><em class="sig-param">part</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.set_part" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow.set_part">
+<span class="sig-name descname"><span class="pre">set_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">part</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.set_part" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the target FPGA part.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -105,9 +107,9 @@
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="symbiflow.symbiflow.SymbiFlow.synthesis">
-<code class="sig-name descname">synthesis</code><span class="sig-paren">(</span><em class="sig-param">top</em>, <em class="sig-param">vhdl=None</em>, <em class="sig-param">vlog=None</em>, <em class="sig-param">slog=None</em>, <em class="sig-param">scf=None</em>, <em class="sig-param">param=None</em>, <em class="sig-param">arch=None</em>, <em class="sig-param">define=None</em>, <em class="sig-param">include=None</em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.synthesis" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow.synthesis">
+<span class="sig-name descname"><span class="pre">synthesis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhdl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vlog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">define</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.synthesis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs synthesis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -131,9 +133,10 @@
 
 </dd></dl>
 
-</div>
+</section>
 
 
+            <div class="clearer"></div>
           </div>
         </div>
       </div>
@@ -175,12 +178,13 @@
         <li class="right" >
           <a href="devices.html" title="Supported devices"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">SymbiFlow CLI  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">API Reference</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Rodrigo A. Melo.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
     </div>
   </body>
 </html>
