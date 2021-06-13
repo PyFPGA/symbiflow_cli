@@ -58,6 +58,7 @@ class SymbiFlow:
         self.oci.set_work(work)
 
     # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-branches
     def synthesis(self, top, vhdl=None, vlog=None, slog=None, scf=None,
                   param=None, arch=None, define=None, include=None):
         """Performs synthesis.
@@ -86,14 +87,6 @@ class SymbiFlow:
             raise NotImplementedError('slog')
         if scf is not None:
             raise NotImplementedError('scf')
-        if param is not None:
-            raise NotImplementedError('param')
-        if arch is not None:
-            raise NotImplementedError('arch')
-        if define is not None:
-            raise NotImplementedError('define')
-        if include is not None:
-            raise NotImplementedError('include')
         # Prepare and run GHDL analysis
         if vhdl is not None:
             for file in vhdl:
@@ -107,23 +100,37 @@ class SymbiFlow:
                 )
                 _run(cmd)
         # Prepare and run Yosys synthesis
-        files = []
+        options = []
+        if include is not None:
+            for aux in include:
+                options.append('verilog_defaults -add -I{}'.format(aux))
+        if define is not None:
+            for aux in define:
+                aux = aux.split(':')
+                options.append('verilog_defines -D{}={}'.format(
+                    aux[0], aux[1]
+                ))
         if vlog is not None:
-            for file in vlog:
-                files.append('read_verilog {}'.format(file))
+            for aux in vlog:
+                options.append('read_verilog -defer {}'.format(aux))
+        if param is not None:
+            for aux in param:
+                aux = aux.split(':')
+                options.append('chparam -set {} {} {}'.format(
+                    aux[0], aux[1], top
+                ))
         if vhdl is not None:
-            files = [_template('ghdl-synth').format(
+            options = [_template('ghdl-synth').format(
                  command='ghdl',
                  outdir=self.outdir,
                  unit=top,
-                 arch=''
+                 arch=arch if arch is not None else ''
             )]
-        cmd = _template('yosys-{}'.format(self.part['family'])).format(
+        cmd = _template('yosys').format(
             command=self.oci.get_command('yosys'),
             module='-m ghdl' if vhdl is not None else '',
-            includes='',
-            files='; '.join(files),
-            params='',
+            options='; '.join(options),
+            family=self.part['family'],
             top=top,
             outdir=self.outdir,
             project=self.project

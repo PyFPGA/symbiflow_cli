@@ -1,6 +1,0 @@
-{command} -Q {module} -p '
-{includes};
-{files};
-{params};
-synth_ecp5 -top {top} -json {outdir}/{project}.json
-'
