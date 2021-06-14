@@ -16,7 +16,7 @@ test: all syn imp bit
 # Complete flow examples
 #
 
-all:
+all: all-ice40
 
 all-ice40:
 	symbiflow all --oci-engine $(ENGINE) --part $(ICE40) \
@@ -28,7 +28,7 @@ all-ice40:
 # Synthesis examples
 #
 
-syn: vhdl-simple vhdl-complex vlog-simple vlog-complex syn-ice40 syn-ecp5
+syn: vhdl-simple vhdl-complex vlog-simple vlog-complex vlog-define vlog-include syn-ice40 syn-ecp5
 
 vhdl-simple:
 	symbiflow syn --oci-engine $(ENGINE) \
@@ -43,6 +43,10 @@ vhdl-complex:
 			$(VHDLDIR)/top.vhdl \
 		--top Top -o build-$@ --project $@
 
+vhdl-param:
+
+vhdl-arch:
+
 vlog-simple:
 	symbiflow syn --oci-engine $(ENGINE) \
 		--vlog $(VLOGDIR)/blink.v \
@@ -54,6 +58,24 @@ vlog-complex:
 			$(VLOGDIR)/blink.v \
 			$(VLOGDIR)/top.v \
 		--top Top -o build-$@ --project $@
+
+vlog-define:
+	symbiflow syn --oci-engine $(ENGINE) \
+		--vlog $(VLOGDIR)/defines.v \
+		--define DEFAULT_FREQ:10000000 DEFAULT_SECS:2 \
+		--top Defines -o build-$@ --project $@
+
+vlog-include:
+	symbiflow syn --oci-engine $(ENGINE) \
+		--vlog $(VLOGDIR)/paths.v \
+		--include $(VLOGDIR)/path1 $(VLOGDIR)/path2 \
+		--top Paths -o build-$@ --project $@
+
+#vlog-param:
+#	symbiflow syn --oci-engine $(ENGINE) \
+#		--vlog $(VLOGDIR)/parameters.v \
+#		--param BOO:1 INT:255 LOG:1 VEC:"11111111" STR:"WXYZ" REA:1.1 \
+#		--top Params -o build-$@ --project $@
 
 syn-ice40:
 	symbiflow syn --oci-engine $(ENGINE) --part $(ICE40) \
