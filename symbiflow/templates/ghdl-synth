@@ -1,1 +1,1 @@
-{command} --std=08 -fsynopsys -fexplicit -frelaxed --workdir={outdir} -P{outdir} {unit} {arch}
+{command} --std=08 -fsynopsys -fexplicit -frelaxed {options} --workdir={outdir} -P{outdir} {unit} {arch}
