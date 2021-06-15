@@ -1,0 +1,4 @@
+{command} -Q {module} -p '
+{options};
+synth_{family} -top {top} -json {outdir}/{project}.json
+'

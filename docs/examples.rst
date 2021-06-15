@@ -7,6 +7,9 @@ Examples
 .. note::
    The following examples are tested under GNU/Linux and using Docker (`install instructions <https://docs.docker.com/engine/install/>`__).
 
+.. note::
+   More examples in :github:`examples/Makefile <PyFPGA/symbiflow_cli/blob/main/examples/Makefile>`.
+
 icestick
 --------
 

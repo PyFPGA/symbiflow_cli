@@ -36,6 +36,7 @@ class SymbiFlow:
         self.part = get_info(part)
         self.outdir = outdir
         self.oci = OCI()
+        self.top = None
         Path(self.outdir).mkdir(parents=True, exist_ok=True)
 
     def set_part(self, part):
@@ -86,49 +87,80 @@ class SymbiFlow:
             raise NotImplementedError('slog')
         if scf is not None:
             raise NotImplementedError('scf')
-        if param is not None:
-            raise NotImplementedError('param')
-        if arch is not None:
-            raise NotImplementedError('arch')
-        if define is not None:
-            raise NotImplementedError('define')
-        if include is not None:
-            raise NotImplementedError('include')
-        # Prepare and run GHDL analysis
+        self.top = top
         if vhdl is not None:
-            for file in vhdl:
-                aux = file.split(',')
-                library = '--work={}'.format(aux[1]) if len(aux) > 1 else ''
-                cmd = _template('ghdl-analysis').format(
-                     command=self.oci.get_command('ghdl'),
-                     outdir=self.outdir,
-                     library=library,
-                     file=aux[0]
-                )
-                _run(cmd)
-        # Prepare and run Yosys synthesis
-        files = []
-        if vlog is not None:
-            for file in vlog:
-                files.append('read_verilog {}'.format(file))
-        if vhdl is not None:
-            files = [_template('ghdl-synth').format(
-                 command='ghdl',
+            self._run_ghdl(vhdl)
+            options = self._vhdl_options(arch, param)
+        else:
+            options = self._vlog_options(vlog, include, define, param)
+        self._run_yosys('-m ghdl' if vhdl is not None else '', options)
+
+    def _run_ghdl(self, vhdl):
+        """Prepare and run GHDL analysis."""
+        for file in vhdl:
+            aux = file.split(',')
+            library = '--work={}'.format(aux[1]) if len(aux) > 1 else ''
+            cmd = _template('ghdl-analysis').format(
+                 command=self.oci.get_command('ghdl'),
                  outdir=self.outdir,
-                 unit=top,
-                 arch=''
-            )]
-        cmd = _template('yosys-{}'.format(self.part['family'])).format(
+                 library=library,
+                 file=aux[0]
+            )
+            _run(cmd)
+
+    def _run_yosys(self, module, options):
+        """Prepare and run Yosys synthesis"""
+        cmd = _template('yosys').format(
             command=self.oci.get_command('yosys'),
-            module='-m ghdl' if vhdl is not None else '',
-            includes='',
-            files='; '.join(files),
-            params='',
-            top=top,
+            module=module,
+            options=';\n'.join(options),
+            family=self.part['family'],
+            top=self.top,
             outdir=self.outdir,
             project=self.project
         )
         _run(cmd)
+
+    def _vlog_options(self, vlog, include, define, param):
+        """Returns the Yosys options when Verilog files."""
+        options = []
+        if include is not None:
+            for aux in include:
+                options.append('verilog_defaults -add -I{}'.format(aux))
+        if define is not None:
+            for aux in define:
+                aux = aux.split(':')
+                options.append('verilog_defines -D{}={}'.format(
+                    aux[0], aux[1]
+                ))
+        for aux in vlog:
+            options.append('read_verilog -defer {}'.format(aux))
+        if param is not None:
+            parameters = []
+            for aux in param:
+                aux = aux.split(':')
+                parameters.append('-set {} {}'.format(aux[0], aux[1]))
+            options.append(
+                'chparam {} {}'.format(' '.join(parameters), self.top)
+            )
+        return options
+
+    def _vhdl_options(self, arch, param):
+        """Returns the Yosys options when Verilog files."""
+        options = []
+        generics = []
+        if param is not None:
+            for aux in param:
+                aux = aux.split(':')
+                generics.append('-g{}={}'.format(aux[0], aux[1]))
+        options = [_template('ghdl-synth').format(
+             command='ghdl',
+             options=' '.join(generics),
+             outdir=self.outdir,
+             unit=self.top,
+             arch=arch if arch is not None else ''
+        )]
+        return options
 
     def implementation(self, icf=None):
         """Performs implementation.
@@ -142,6 +174,7 @@ class SymbiFlow:
         else:  # family == 'ecp5'
             ext = 'lpf'
         self._create_constraint(icf, ext)
+        # Prepare and run P&R
         cmd = _template('nextpnr-{}'.format(family)).format(
             command=self.oci.get_command('nextpnr-{}'.format(family)),
             device=self.part['device'],
@@ -150,6 +183,7 @@ class SymbiFlow:
             project=self.project
         )
         _run(cmd)
+        # Prepare and run STA
         if family == 'ice40':
             cmd = _template('icetime').format(
                 command=self.oci.get_command('icetime'),
@@ -173,15 +207,14 @@ class SymbiFlow:
 
     def bitstream(self):
         """Performs bitstream generation."""
-        family = self.part['family']
-        if family == 'ice40':
+        if self.part['family'] == 'ice40':
             cmd = _template('icepack').format(
                 command=self.oci.get_command('icepack'),
                 outdir=self.outdir,
                 project=self.project
             )
             _run(cmd)
-        else:  # family == 'ecp5'
+        else:  # self.part['family'] == 'ecp5'
             cmd = _template('ecppack').format(
                 command=self.oci.get_command('ecppack'),
                 outdir=self.outdir,
@@ -191,8 +224,7 @@ class SymbiFlow:
 
     def programming(self):
         """Performs programation."""
-        family = self.part['family']
-        if family == 'ice40':
+        if self.part['family'] == 'ice40':
             cmd = _template('iceprog').format(
                 command=self.oci.get_command('iceprog'),
                 outdir=self.outdir,
