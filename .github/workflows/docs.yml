@@ -20,6 +20,7 @@ jobs:
         docker pull hdlc/nextpnr:ecp5
     - name: Install dependencies
       run: |
+        sudo apt install graphviz
         pip install sphinx
         pip install .
     - name: Build docs

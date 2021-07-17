@@ -1,5 +1,8 @@
 build*
+ignore*
 __pycache__
 *.egg-info
 docs/*.txt
 docs/_build
+docs/_static
+docs/_templates

@@ -13,6 +13,11 @@ The `SymbiFlow CLI <https://github.com/PyFPGA/symbiflow_cli>`__ proyect aims to 
 * Tools from the :github:`IceStorm <YosysHQ/icestorm>` and :github:`Trellis <YosysHQ/prjtrellis>` projects provide support for **iCE40** and **ECP5** devices.
 * Ideally, it will also support **System Verilog** (through :github:`Surelog <chipsalliance/Surelog>` and :github:`UHDM <chipsalliance/UHDM>`), other *P&R* tools (such as :github:`VPR <verilog-to-routing/vtr-verilog-to-routing>`), and more devices (employing projects such as :github:`Apicula <YosysHQ/apicula>`, :github:`Mistral <Ravenslofty/mistral>`, :github:`Oxide <gatecat/prjoxide>`, :github:`XRay <SymbiFlow/prjxray>`, :github:`URay <SymbiFlow/prjuray>`, and more!).
 
+.. image:: _static/tools.svg
+  :width: 400
+  :alt: Tools employed by symbiflow_cli
+  :align: center
+
 .. note::
     By default, it assumes that the tools employed under the hood are installed and ready to be used. Alternatively, an :wikipedia:`OCI <Open_Container_Initiative>` engine such as Docker or Podman could be used, based on containers from the `hdl/containers <https://hdl.github.io/containers>`__ Project.
 

@@ -8,11 +8,11 @@ BUILDDIR      = _build
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: help Makefile snippets devices
+.PHONY: help Makefile snippets images devices
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile snippets
+%: Makefile snippets images
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 snippets:
@@ -22,6 +22,9 @@ snippets:
 		symbiflow $$cmd -h > help-$$cmd.txt ; \
 	done
 	@echo "$@ generated"
+
+images:
+	make -C dot
 
 devices:
 	python3 devices.py
