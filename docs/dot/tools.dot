@@ -1,8 +1,7 @@
 digraph tools {
-//	rankdir=LR;
 	node [shape = doublecircle];
 	node [shape = rectangle];
-	"ghdl-yosys-plugin" Yosys "nextpnr-ice40" "nextpnr-ecp5" icetime icepack iceprog eccpack;
+	GHDL "ghdl-yosys-plugin" Yosys "nextpnr-ice40" "nextpnr-ecp5" icetime icepack iceprog eccpack;
 	node [shape = note ];
 	VHDL Verilog;
 	node [shape = box3d ];
@@ -10,7 +9,8 @@ digraph tools {
 	node [shape = oval];
 	"bit-ice40" [label=".bit"];
 	"bit-ecp5"  [label=".bit"];
-	VHDL                -> "ghdl-yosys-plugin";
+	VHDL                -> {GHDL "ghdl-yosys-plugin"};
+	GHDL                -> "ghdl-yosys-plugin";
 	"ghdl-yosys-plugin" -> Yosys;
 	Verilog             -> Yosys;
 	Yosys               -> ".json";
@@ -23,6 +23,6 @@ digraph tools {
 	iceprog             -> ice40;
 	".config"           -> eccpack;
 	eccpack             -> "bit-ecp5";
-	{rank = same; Yosys; "ghdl-yosys-plugin";}
+	{rank = same; GHDL ; "ghdl-yosys-plugin"; Yosys;}
 }
 
