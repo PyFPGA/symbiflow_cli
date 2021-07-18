@@ -12,6 +12,7 @@
 """SymbiFlow CLI"""
 
 import argparse
+import errno
 import logging
 import sys
 from symbiflow import __version__ as version
@@ -33,6 +34,7 @@ _DEF_OCI_WORK = '$PWD'
 _COMMANDS = ['all', 'syn', 'imp', 'bit', 'pgm']
 
 
+# pylint: disable=too-many-statements
 def main():
     """Parse the CLI arguments"""
 
@@ -225,12 +227,18 @@ def main():
 
     logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
     if args.command not in _COMMANDS:
-        logging.critical('specify an available command %s', _COMMANDS)
-        sys.exit()
+        logging.critical('please specify an available command %s', _COMMANDS)
+        sys.exit(errno.EPERM)
     if args.command in ['all', 'syn']:
         if args.vhdl == args.vlog == args.slog is None:
-            logging.critical('you must specify at least one HDL file')
-            sys.exit()
+            logging.critical('please provide at least one HDL file')
+            sys.exit(errno.ENOENT)
+        if args.slog is not None:
+            logging.critical('System Verilog is not yet supported')
+            sys.exit(errno.ENOSYS)
+        if args.scf is not None:
+            logging.critical('Synthesis Constraints are not yet supported')
+            sys.exit(errno.ENOSYS)
 
     #
     # Invoke the tools
