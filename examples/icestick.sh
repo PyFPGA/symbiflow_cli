@@ -6,10 +6,10 @@ symbiflow syn --oci-engine docker --part hx1k-tq144 \
   --vlog ../resources/verilog/blink.v \
   --top Blink -o build-icestick --project icestick
 
-echo "Implementation"
+echo "Place and Route"
 
-symbiflow imp --oci-engine docker --part hx1k-tq144 \
-  --icf ../resources/constraints/icestick/clk.pcf ../resources/constraints/icestick/led.pcf \
+symbiflow pnr --oci-engine docker --part hx1k-tq144 \
+  --pcf ../resources/constraints/icestick/clk.pcf ../resources/constraints/icestick/led.pcf \
   -o build-icestick --project icestick
 
 echo "Bitstream generation"
@@ -28,7 +28,7 @@ echo "From Synthesis to Bitstream generation in one step (VHDL)"
 
 symbiflow all --oci-engine docker --part hx1k-tq144 \
   --vhdl ../resources/vhdl/blink.vhdl \
-  --icf ../resources/constraints/icestick/clk.pcf ../resources/constraints/icestick/led.pcf \
+  --pcf ../resources/constraints/icestick/clk.pcf ../resources/constraints/icestick/led.pcf \
   --top Blink -o build-icestick --project icestick
 
 if [ "$1" == "program" ]; then

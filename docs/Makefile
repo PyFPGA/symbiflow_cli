@@ -18,7 +18,7 @@ help:
 snippets:
 	@echo "Generating $@"
 	@symbiflow -h > help.txt
-	@for cmd in all syn imp bit pgm; do \
+	@for cmd in all syn pnr bit pgm; do \
 		symbiflow $$cmd -h > help-$$cmd.txt ; \
 	done
 	@echo "$@ generated"

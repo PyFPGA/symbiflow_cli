@@ -162,18 +162,18 @@ class SymbiFlow:
         )]
         return options
 
-    def implementation(self, icf=None):
-        """Performs implementation.
+    def pnr(self, pcf=None):
+        """Performs Place and Route.
 
-        :param icf: Implementation Constraint Files
-        :type icf: list
+        :param pcf: Physical Constraint Files
+        :type pcf: list
         """
         family = self.part['family']
         if family == 'ice40':
             ext = 'pcf'
         else:  # family == 'ecp5'
             ext = 'lpf'
-        self._create_constraint(icf, ext)
+        self._create_constraint(pcf, ext)
         # Prepare and run P&R
         cmd = _template('nextpnr-{}'.format(family)).format(
             command=self.oci.get_command('nextpnr-{}'.format(family)),

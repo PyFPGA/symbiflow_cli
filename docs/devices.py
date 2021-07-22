@@ -11,7 +11,7 @@ def gen_file(filename, default, families, packages):
                 part = "{}-{}".format(family, package)
                 obj.set_part(part)
                 try:
-                    obj.implementation()
+                    obj.pnr()
                     parts.append(part)
                 except:
                     print('Unsupported part {}'.format(part))

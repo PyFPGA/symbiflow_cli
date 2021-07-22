@@ -21,7 +21,7 @@ from symbiflow.symbiflow import SymbiFlow
 
 _ALL_DESC = 'Performs from synthesis to bitstream generation'
 _SYN_DESC = 'Performs synthesis'
-_IMP_DESC = 'Performs implementation'
+_PNR_DESC = 'Performs place and route'
 _BIT_DESC = 'Performs bitstream generation'
 _PGM_DESC = 'Performs programming'
 
@@ -31,7 +31,7 @@ _DEF_OUTDIR = '.'
 _DEF_OCI_VOLUMES = ['$HOME:$HOME']
 _DEF_OCI_WORK = '$PWD'
 
-_COMMANDS = ['all', 'syn', 'imp', 'bit', 'pgm']
+_COMMANDS = ['all', 'syn', 'pnr', 'bit', 'pgm']
 
 
 # pylint: disable=too-many-statements
@@ -154,14 +154,14 @@ def main():
         help='Synthesis Constraint Files'
     )
 
-    # Arguments for implementation
+    # Arguments for pnr
 
-    args_for_imp = argparse.ArgumentParser(add_help=False)
-    args_for_imp.add_argument(
-        '--icf',
+    args_for_pnr = argparse.ArgumentParser(add_help=False)
+    args_for_pnr.add_argument(
+        '--pcf',
         metavar='FILE',
         nargs='+',
-        help='Implementation Constraint Files'
+        help='Physical Constraint Files'
     )
 
     #
@@ -188,7 +188,7 @@ def main():
         'all',
         description=_ALL_DESC,
         help=_ALL_DESC,
-        parents=[args_for_syn, args_for_imp, args_shared]
+        parents=[args_for_syn, args_for_pnr, args_shared]
     )
 
     subparsers.add_parser(
@@ -199,10 +199,10 @@ def main():
     )
 
     subparsers.add_parser(
-        'imp',
-        description=_IMP_DESC,
-        help=_IMP_DESC,
-        parents=[args_for_imp, args_shared]
+        'pnr',
+        description=_PNR_DESC,
+        help=_PNR_DESC,
+        parents=[args_for_pnr, args_shared]
     )
 
     subparsers.add_parser(
@@ -249,8 +249,8 @@ def main():
     if args.command in ['all', 'syn']:
         prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
                       args.param, args.arch, args.define, args.include)
-    if args.command in ['all', 'imp']:
-        prj.implementation(args.icf)
+    if args.command in ['all', 'pnr']:
+        prj.pnr(args.pcf)
     if args.command in ['all', 'bit']:
         prj.bitstream()
     if args.command == 'pgm':
