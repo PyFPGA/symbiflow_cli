@@ -49,16 +49,16 @@
 <h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
 <section id="symbiflow">
 <h2>symbiflow<a class="headerlink" href="#symbiflow" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span> <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">,</span><span class="n">pgm</span><span class="p">}</span> <span class="o">...</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">symbiflow</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span> <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">pnr</span><span class="p">,</span><span class="n">bit</span><span class="p">,</span><span class="n">pgm</span><span class="p">}</span> <span class="o">...</span>
 
 <span class="n">SymbiFlow</span> <span class="n">CLI</span>
 
 <span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
-  <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">imp</span><span class="p">,</span><span class="n">bit</span><span class="p">,</span><span class="n">pgm</span><span class="p">}</span>
+  <span class="p">{</span><span class="nb">all</span><span class="p">,</span><span class="n">syn</span><span class="p">,</span><span class="n">pnr</span><span class="p">,</span><span class="n">bit</span><span class="p">,</span><span class="n">pgm</span><span class="p">}</span>
                         <span class="n">Available</span> <span class="n">commands</span>
     <span class="nb">all</span>                 <span class="n">Performs</span> <span class="kn">from</span> <span class="nn">synthesis</span> <span class="n">to</span> <span class="n">bitstream</span> <span class="n">generation</span>
     <span class="n">syn</span>                 <span class="n">Performs</span> <span class="n">synthesis</span>
-    <span class="n">imp</span>                 <span class="n">Performs</span> <span class="n">implementation</span>
+    <span class="n">pnr</span>                 <span class="n">Performs</span> <span class="n">place</span> <span class="ow">and</span> <span class="n">route</span>
     <span class="n">bit</span>                 <span class="n">Performs</span> <span class="n">bitstream</span> <span class="n">generation</span>
     <span class="n">pgm</span>                 <span class="n">Performs</span> <span class="n">programming</span>
 
@@ -76,7 +76,7 @@
                      [--include [PATH [PATH ...]]] [--vhdl FILE[,LIBRARY]
                      [FILE[,LIBRARY] ...]] [--vlog FILE [FILE ...]]
                      [--slog FILE [FILE ...]] [--scf FILE [FILE ...]]
-                     [--icf FILE [FILE ...]] [--project PROJECT] [-p FPGA]
+                     [--pcf FILE [FILE ...]] [--project PROJECT] [-p FPGA]
                      [-o PATH] [--oci-engine {None,docker,podman}]
                      [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
                      [--oci-work WORK]
@@ -101,8 +101,8 @@ optional arguments:
                         System Verilog files
   --scf FILE [FILE ...]
                         Synthesis Constraint Files
-  --icf FILE [FILE ...]
-                        Implementation Constraint Files
+  --pcf FILE [FILE ...]
+                        Physical Constraint Files
   --project PROJECT     basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
@@ -160,19 +160,19 @@ optional arguments:
 </pre></div>
 </div>
 </section>
-<section id="symbiflow-imp">
-<h2>symbiflow imp<a class="headerlink" href="#symbiflow-imp" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow imp [-h] [--icf FILE [FILE ...]] [--project PROJECT]
+<section id="symbiflow-pnr">
+<h2>symbiflow pnr<a class="headerlink" href="#symbiflow-pnr" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pnr [-h] [--pcf FILE [FILE ...]] [--project PROJECT]
                      [-p FPGA] [-o PATH] [--oci-engine {None,docker,podman}]
                      [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
                      [--oci-work WORK]
 
-Performs implementation
+Performs place and route
 
 optional arguments:
   -h, --help            show this help message and exit
-  --icf FILE [FILE ...]
-                        Implementation Constraint Files
+  --pcf FILE [FILE ...]
+                        Physical Constraint Files
   --project PROJECT     basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
@@ -246,7 +246,7 @@ optional arguments:
 <li><a class="reference internal" href="#symbiflow">symbiflow</a></li>
 <li><a class="reference internal" href="#symbiflow-all">symbiflow all</a></li>
 <li><a class="reference internal" href="#symbiflow-syn">symbiflow syn</a></li>
-<li><a class="reference internal" href="#symbiflow-imp">symbiflow imp</a></li>
+<li><a class="reference internal" href="#symbiflow-pnr">symbiflow pnr</a></li>
 <li><a class="reference internal" href="#symbiflow-bit">symbiflow bit</a></li>
 <li><a class="reference internal" href="#symbiflow-pgm">symbiflow pgm</a></li>
 </ul>
