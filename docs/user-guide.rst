@@ -16,10 +16,10 @@ symbiflow syn
 
 .. literalinclude:: help-syn.txt
 
-symbiflow imp
+symbiflow pnr
 -------------
 
-.. literalinclude:: help-imp.txt
+.. literalinclude:: help-pnr.txt
 
 symbiflow bit
 -------------

@@ -10,7 +10,7 @@ VLOGDIR = ../resources/verilog
 CONSDIR = ../resources/constraints/$(BOARD)
 
 
-test: all syn imp bit
+test: all syn pnr bit
 
 #
 # Complete flow examples
@@ -21,7 +21,7 @@ all: all-ice40
 all-ice40:
 	symbiflow all --oci-engine $(ENGINE) --part $(ICE40) \
 		--vlog $(VLOGDIR)/blink.v \
-		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
+		--pcf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
 		--top Blink -o build-ice40 --project ice40
 
 #
@@ -99,18 +99,18 @@ syn-ecp5:
 		--top Blink -o build-ecp5 --project ecp5
 
 #
-# Implementation examples
+# Place and Route examples
 #
 
-imp: imp-ice40 imp-ecp5
+pnr: pnr-ice40 pnr-ecp5
 
-imp-ice40:
-	symbiflow imp --oci-engine $(ENGINE) --part $(ICE40) \
-		--icf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
+pnr-ice40:
+	symbiflow pnr --oci-engine $(ENGINE) --part $(ICE40) \
+		--pcf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
 		-o build-ice40 --project ice40
 
-imp-ecp5:
-	symbiflow imp --oci-engine $(ENGINE) --part $(ECP5) \
+pnr-ecp5:
+	symbiflow pnr --oci-engine $(ENGINE) --part $(ECP5) \
 	-o build-ecp5 --project ecp5
 
 #

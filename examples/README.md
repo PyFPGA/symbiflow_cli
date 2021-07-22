@@ -18,7 +18,7 @@ bash icestick.sh program
 
 ```bash
 make syn-ice40
-make imp-ice40
+make pnr-ice40
 make bit-ice40
 make pgm-ice40
 ```
