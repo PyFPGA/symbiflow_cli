@@ -21,7 +21,7 @@ all: all-ice40
 all-ice40:
 	symbiflow all --oci-engine $(ENGINE) --part $(ICE40) \
 		--vlog $(VLOGDIR)/blink.v \
-		--pcf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
+		--pcf $(CONSDIR)/clk.pcf --pcf $(CONSDIR)/led.pcf \
 		--top Blink -o build-ice40 --project ice40
 
 #
@@ -106,7 +106,7 @@ pnr: pnr-ice40 pnr-ecp5
 
 pnr-ice40:
 	symbiflow pnr --oci-engine $(ENGINE) --part $(ICE40) \
-		--pcf $(CONSDIR)/clk.pcf $(CONSDIR)/led.pcf \
+		--pcf $(CONSDIR)/clk.pcf --pcf $(CONSDIR)/led.pcf \
 		-o build-ice40 --project ice40
 
 pnr-ecp5:

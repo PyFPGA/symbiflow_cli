@@ -152,7 +152,7 @@ def main():
     args_for_syn.add_argument(
         '--scf',
         metavar='FILE',
-        nargs='+',
+        action='append',
         help='Synthesis Constraint Files'
     )
 
@@ -162,7 +162,7 @@ def main():
     args_for_pnr.add_argument(
         '--pcf',
         metavar='FILE',
-        nargs='+',
+        action='append',
         help='Physical Constraint Files'
     )
 
