@@ -72,10 +72,10 @@ class SymbiFlow:
         :type slog: list
         :param scf: Synthesis Constraint Files
         :type scf: list
-        :param param: specify top-level Generics/Parameters (`PARAM:VALUE`)
+        :param param: specify top-level Generics/Parameters (`PARAM VALUE`)
         :type param: list
         :param arch: specify a VHDL top-level Architecture
-        :param define: specify [System] Verilog Defines (`DEFINE:VALUE`)
+        :param define: specify [System] Verilog Defines (`DEFINE VALUE`)
         :type define: list
         :param include: specify [System] Verilog Include Paths
         :type include: list
@@ -129,7 +129,6 @@ class SymbiFlow:
                 options.append('verilog_defaults -add -I{}'.format(aux))
         if define is not None:
             for aux in define:
-                aux = aux.split(':')
                 options.append('verilog_defines -D{}={}'.format(
                     aux[0], aux[1]
                 ))
@@ -138,7 +137,6 @@ class SymbiFlow:
         if param is not None:
             parameters = []
             for aux in param:
-                aux = aux.split(':')
                 parameters.append('-set {} {}'.format(aux[0], aux[1]))
             options.append(
                 'chparam {} {}'.format(' '.join(parameters), self.top)
@@ -151,7 +149,6 @@ class SymbiFlow:
         generics = []
         if param is not None:
             for aux in param:
-                aux = aux.split(':')
                 generics.append('-g{}={}'.format(aux[0], aux[1]))
         options = [_template('ghdl-synth').format(
              command='ghdl',

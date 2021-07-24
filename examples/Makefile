@@ -49,7 +49,7 @@ vhdl-complex:
 vhdl-param:
 	symbiflow syn --oci-engine $(ENGINE) \
 		--vhdl $(VHDLDIR)/generics.vhdl \
-		--param BOO:True INT:255 \
+		--param BOO True --param INT 255 \
 		--top Params -o build-$@ --project $@
 
 vhdl-arch:
@@ -73,19 +73,19 @@ vlog-complex:
 vlog-define:
 	symbiflow syn --oci-engine $(ENGINE) \
 		--vlog $(VLOGDIR)/defines.v \
-		--define DEFAULT_FREQ:10000000 DEFAULT_SECS:2 \
+		--define DEFAULT_FREQ 10000000 --define DEFAULT_SECS 2 \
 		--top Defines -o build-$@ --project $@
 
 vlog-include:
 	symbiflow syn --oci-engine $(ENGINE) \
 		--vlog $(VLOGDIR)/paths.v \
-		--include $(VLOGDIR)/path1 $(VLOGDIR)/path2 \
+		--include $(VLOGDIR)/path1 --include $(VLOGDIR)/path2 \
 		--top Paths -o build-$@ --project $@
 
 vlog-param:
 	symbiflow syn --oci-engine $(ENGINE) \
 		--vlog $(VLOGDIR)/parameters.v \
-		--param BOO:1 INT:255 LOG:1 \
+		--param BOO 1 --param INT 255 --param LOG 1 \
 		--top Params -o build-$@ --project $@
 
 syn-ice40:

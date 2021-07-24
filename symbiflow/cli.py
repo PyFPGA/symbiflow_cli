@@ -28,7 +28,7 @@ _PGM_DESC = 'Performs programming'
 _DEF_PROJECT = 'symbiflow'
 _DEF_PART = 'hx8k-ct256'
 _DEF_OUTDIR = '.'
-_DEF_OCI_VOLUMES = ['$HOME:$HOME']
+_DEF_OCI_VOLUMES = '$HOME:$HOME'
 _DEF_OCI_WORK = '$PWD'
 
 _COMMANDS = ['all', 'syn', 'pnr', 'bit', 'pgm']
@@ -77,8 +77,8 @@ def main():
     args_shared.add_argument(
         "--oci-volumes",
         metavar='HOST-DIR:CONT-DIR',
-        nargs='*',
-        default=_DEF_OCI_VOLUMES,
+        action='append',
+        default=[_DEF_OCI_VOLUMES],
         help='volumes for the OCI engine [{}]'.format(_DEF_OCI_VOLUMES)
     )
 
@@ -101,8 +101,9 @@ def main():
 
     args_for_syn.add_argument(
         '--param',
-        metavar='PARAM:VALUE',
-        nargs='*',
+        metavar=('PARAM', 'VALUE'),
+        action='append',
+        nargs=2,
         help='specify top-level Generics/Parameters'
     )
 
@@ -114,16 +115,17 @@ def main():
 
     args_for_syn.add_argument(
         '--define',
-        metavar='DEFINE:VALUE',
-        nargs='*',
+        metavar=('DEFINE', 'VALUE'),
+        action='append',
+        nargs=2,
         help='specify [System] Verilog Defines'
     )
 
     args_for_syn.add_argument(
         '--include',
         metavar='PATH',
-        nargs='*',
-        help='specify [System] Verilog Include Paths'
+        action='append',
+        help='specify a [System] Verilog Include Paths'
     )
 
     args_for_syn.add_argument(
