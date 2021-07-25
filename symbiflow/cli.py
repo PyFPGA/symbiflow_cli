@@ -31,6 +31,8 @@ _DEF_OUTDIR = '.'
 _DEF_OCI_VOLUMES = '$HOME:$HOME'
 _DEF_OCI_WORK = '$PWD'
 
+_MULTIPLE_MSG = '(can be specified multiple times)'
+
 _COMMANDS = ['all', 'syn', 'pnr', 'bit', 'pgm']
 
 
@@ -48,7 +50,7 @@ def main():
 
     args_shared.add_argument(
         '--project',
-        metavar='PROJECT',
+        metavar='NAME',
         default=_DEF_PROJECT,
         help='basename for generated files [{}]'.format(_DEF_PROJECT)
     )
@@ -79,7 +81,9 @@ def main():
         metavar='HOST-DIR:CONT-DIR',
         action='append',
         default=[_DEF_OCI_VOLUMES],
-        help='volumes for the OCI engine [{}]'.format(_DEF_OCI_VOLUMES)
+        help='volumes for the OCI engine [{}] {}'.format(
+            _DEF_OCI_VOLUMES, _MULTIPLE_MSG
+        )
     )
 
     args_shared.add_argument(
@@ -101,31 +105,33 @@ def main():
 
     args_for_syn.add_argument(
         '--param',
-        metavar=('PARAM', 'VALUE'),
+        metavar=('NAME', 'VALUE'),
         action='append',
         nargs=2,
-        help='specify top-level Generics/Parameters'
+        help='specify a top-level Generic/Parameter {}'.format(_MULTIPLE_MSG)
     )
 
     args_for_syn.add_argument(
         '--arch',
-        metavar='ARCHITECTURE',
+        metavar='NAME',
         help='specify a VHDL top-level Architecture'
     )
 
     args_for_syn.add_argument(
         '--define',
-        metavar=('DEFINE', 'VALUE'),
+        metavar=('NAME', 'VALUE'),
         action='append',
         nargs=2,
-        help='specify [System] Verilog Defines'
+        help='specify a [System] Verilog Define {}'.format(_MULTIPLE_MSG)
     )
 
     args_for_syn.add_argument(
         '--include',
         metavar='PATH',
         action='append',
-        help='specify a [System] Verilog Include Paths'
+        help='specify a [System] Verilog Include Path {}'.format(
+            _MULTIPLE_MSG
+        )
     )
 
     args_for_syn.add_argument(
@@ -153,26 +159,25 @@ def main():
         '--scf',
         metavar='FILE',
         action='append',
-        help='Synthesis Constraint Files'
+        help='Synthesis Constraint Files {}'.format(_MULTIPLE_MSG)
     )
 
     # Arguments for pnr
 
     args_for_pnr = argparse.ArgumentParser(add_help=False)
+
     args_for_pnr.add_argument(
         '--pcf',
         metavar='FILE',
         action='append',
-        help='Physical Constraint Files'
+        help='Physical Constraint Files {}'.format(_MULTIPLE_MSG)
     )
 
     #
     # Parse
     #
 
-    parser = argparse.ArgumentParser(
-        description=__doc__
-    )
+    parser = argparse.ArgumentParser(description=__doc__)
 
     parser.add_argument(
         '-v', '--version',

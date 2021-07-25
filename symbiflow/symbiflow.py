@@ -72,11 +72,11 @@ class SymbiFlow:
         :type slog: list
         :param scf: Synthesis Constraint Files
         :type scf: list
-        :param param: specify top-level Generics/Parameters (`PARAM VALUE`)
-        :type param: list
+        :param param: specify top-level Generics/Parameters
+        :type param: list of lists (`['PARAM', 'VALUE']`)
         :param arch: specify a VHDL top-level Architecture
-        :param define: specify [System] Verilog Defines (`DEFINE VALUE`)
-        :type define: list
+        :param define: specify [System] Verilog Defines
+        :type define: list of lists (`['DEFINE', 'VALUE']`)
         :param include: specify [System] Verilog Include Paths
         :type include: list
         :raises FileNotFoundError: when no HDL files are provided
