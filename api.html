@@ -109,24 +109,26 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="symbiflow.symbiflow.SymbiFlow.synthesis">
-<span class="sig-name descname"><span class="pre">synthesis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhdl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vlog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">define</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.synthesis" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">synthesis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">define</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#symbiflow.symbiflow.SymbiFlow.synthesis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs synthesis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>top</strong> – name of the top-level entity/module</p></li>
-<li><p><strong>vhdl</strong> (<em>list</em>) – VHDL files (<cite>FILE[,LIBRARY]</cite>)</p></li>
-<li><p><strong>vlog</strong> (<em>list</em>) – Verilog files</p></li>
-<li><p><strong>slog</strong> (<em>list</em>) – System Verilog files</p></li>
+<li><p><strong>hdl</strong> (<em>list</em>) – HDL files</p></li>
 <li><p><strong>scf</strong> (<em>list</em>) – Synthesis Constraint Files</p></li>
-<li><p><strong>param</strong> (<em>list</em>) – specify top-level Generics/Parameters (<cite>PARAM:VALUE</cite>)</p></li>
+<li><p><strong>param</strong> (list of lists (<cite>[‘PARAM’, ‘VALUE’]</cite>)) – specify top-level Generics/Parameters</p></li>
 <li><p><strong>arch</strong> – specify a VHDL top-level Architecture</p></li>
-<li><p><strong>define</strong> (<em>list</em>) – specify [System] Verilog Defines (<cite>DEFINE:VALUE</cite>)</p></li>
+<li><p><strong>define</strong> (list of lists (<cite>[‘DEFINE’, ‘VALUE’]</cite>)) – specify [System] Verilog Defines</p></li>
 <li><p><strong>include</strong> (<em>list</em>) – specify [System] Verilog Include Paths</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><strong>FileNotFoundError</strong> – when no HDL files are provided</p>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – when no HDL files are provided</p></li>
+<li><p><strong>NotImplementedError</strong> – when a feature was still not implemented</p></li>
+<li><p><strong>TypeError</strong> – when a Verilog header file is specified as an HDL</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -184,7 +186,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Rodrigo A. Melo.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
     </div>
   </body>
 </html>

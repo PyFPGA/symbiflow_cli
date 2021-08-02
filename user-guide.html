@@ -70,163 +70,153 @@
 </section>
 <section id="symbiflow-all">
 <h2>symbiflow all<a class="headerlink" href="#symbiflow-all" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow all [-h] [-t NAME] [--param [PARAM:VALUE [PARAM:VALUE ...]]]
-                     [--arch ARCHITECTURE]
-                     [--define [DEFINE:VALUE [DEFINE:VALUE ...]]]
-                     [--include [PATH [PATH ...]]] [--vhdl FILE[,LIBRARY]
-                     [FILE[,LIBRARY] ...]] [--vlog FILE [FILE ...]]
-                     [--slog FILE [FILE ...]] [--scf FILE [FILE ...]]
-                     [--pcf FILE [FILE ...]] [--project PROJECT] [-p FPGA]
-                     [-o PATH] [--oci-engine {None,docker,podman}]
-                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
-                     [--oci-work WORK]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow all [-h] [-t NAME] [--param NAME VALUE] [--arch NAME]
+                     [--define NAME VALUE] [--include PATH] [--scf FILE]
+                     [--pcf FILE] [--project NAME] [-p FPGA] [-o PATH]
+                     [--oci-engine {None,docker,podman}]
+                     [--oci-volumes HOST-DIR:CONT-DIR] [--oci-work WORK]
+                     FILE[,LIBRARY] [FILE[,LIBRARY] ...]
 
 Performs from synthesis to bitstream generation
+
+positional arguments:
+  FILE[,LIBRARY]        HDL file (with an optional LIBRARY specification for
+                        VHDL)
 
 optional arguments:
   -h, --help            show this help message and exit
   -t NAME, --top NAME   specify a top-level name
-  --param [PARAM:VALUE [PARAM:VALUE ...]]
-                        specify top-level Generics/Parameters
-  --arch ARCHITECTURE   specify a VHDL top-level Architecture
-  --define [DEFINE:VALUE [DEFINE:VALUE ...]]
-                        specify [System] Verilog Defines
-  --include [PATH [PATH ...]]
-                        specify [System] Verilog Include Paths
-  --vhdl FILE[,LIBRARY] [FILE[,LIBRARY] ...]
-                        VHDL files
-  --vlog FILE [FILE ...]
-                        Verilog files
-  --slog FILE [FILE ...]
-                        System Verilog files
-  --scf FILE [FILE ...]
-                        Synthesis Constraint Files
-  --pcf FILE [FILE ...]
-                        Physical Constraint Files
-  --project PROJECT     basename for generated files [symbiflow]
+  --param NAME VALUE    specify a top-level Generic/Parameter (can be
+                        specified multiple times)
+  --arch NAME           specify a VHDL top-level Architecture
+  --define NAME VALUE   specify a [System] Verilog Define (can be specified
+                        multiple times)
+  --include PATH        specify a [System] Verilog Include Path (can be
+                        specified multiple times)
+  --scf FILE            Synthesis Constraint File (can be specified multiple
+                        times)
+  --pcf FILE            Physical Constraint File (can be specified multiple
+                        times)
+  --project NAME        basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {None,docker,podman}
                         OCI engine internally employed [None]
-  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
-                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-volumes HOST-DIR:CONT-DIR
+                        volumes for the OCI engine [$HOME:$HOME] (can be
+                        specified multiple times)
   --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </section>
 <section id="symbiflow-syn">
 <h2>symbiflow syn<a class="headerlink" href="#symbiflow-syn" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow syn [-h] [-t NAME] [--param [PARAM:VALUE [PARAM:VALUE ...]]]
-                     [--arch ARCHITECTURE]
-                     [--define [DEFINE:VALUE [DEFINE:VALUE ...]]]
-                     [--include [PATH [PATH ...]]] [--vhdl FILE[,LIBRARY]
-                     [FILE[,LIBRARY] ...]] [--vlog FILE [FILE ...]]
-                     [--slog FILE [FILE ...]] [--scf FILE [FILE ...]]
-                     [--project PROJECT] [-p FPGA] [-o PATH]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow syn [-h] [-t NAME] [--param NAME VALUE] [--arch NAME]
+                     [--define NAME VALUE] [--include PATH] [--scf FILE]
+                     [--project NAME] [-p FPGA] [-o PATH]
                      [--oci-engine {None,docker,podman}]
-                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
-                     [--oci-work WORK]
+                     [--oci-volumes HOST-DIR:CONT-DIR] [--oci-work WORK]
+                     FILE[,LIBRARY] [FILE[,LIBRARY] ...]
 
 Performs synthesis
+
+positional arguments:
+  FILE[,LIBRARY]        HDL file (with an optional LIBRARY specification for
+                        VHDL)
 
 optional arguments:
   -h, --help            show this help message and exit
   -t NAME, --top NAME   specify a top-level name
-  --param [PARAM:VALUE [PARAM:VALUE ...]]
-                        specify top-level Generics/Parameters
-  --arch ARCHITECTURE   specify a VHDL top-level Architecture
-  --define [DEFINE:VALUE [DEFINE:VALUE ...]]
-                        specify [System] Verilog Defines
-  --include [PATH [PATH ...]]
-                        specify [System] Verilog Include Paths
-  --vhdl FILE[,LIBRARY] [FILE[,LIBRARY] ...]
-                        VHDL files
-  --vlog FILE [FILE ...]
-                        Verilog files
-  --slog FILE [FILE ...]
-                        System Verilog files
-  --scf FILE [FILE ...]
-                        Synthesis Constraint Files
-  --project PROJECT     basename for generated files [symbiflow]
+  --param NAME VALUE    specify a top-level Generic/Parameter (can be
+                        specified multiple times)
+  --arch NAME           specify a VHDL top-level Architecture
+  --define NAME VALUE   specify a [System] Verilog Define (can be specified
+                        multiple times)
+  --include PATH        specify a [System] Verilog Include Path (can be
+                        specified multiple times)
+  --scf FILE            Synthesis Constraint File (can be specified multiple
+                        times)
+  --project NAME        basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {None,docker,podman}
                         OCI engine internally employed [None]
-  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
-                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-volumes HOST-DIR:CONT-DIR
+                        volumes for the OCI engine [$HOME:$HOME] (can be
+                        specified multiple times)
   --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </section>
 <section id="symbiflow-pnr">
 <h2>symbiflow pnr<a class="headerlink" href="#symbiflow-pnr" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pnr [-h] [--pcf FILE [FILE ...]] [--project PROJECT]
-                     [-p FPGA] [-o PATH] [--oci-engine {None,docker,podman}]
-                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
-                     [--oci-work WORK]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pnr [-h] [--pcf FILE] [--project NAME] [-p FPGA] [-o PATH]
+                     [--oci-engine {None,docker,podman}]
+                     [--oci-volumes HOST-DIR:CONT-DIR] [--oci-work WORK]
 
 Performs place and route
 
 optional arguments:
   -h, --help            show this help message and exit
-  --pcf FILE [FILE ...]
-                        Physical Constraint Files
-  --project PROJECT     basename for generated files [symbiflow]
+  --pcf FILE            Physical Constraint File (can be specified multiple
+                        times)
+  --project NAME        basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {None,docker,podman}
                         OCI engine internally employed [None]
-  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
-                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-volumes HOST-DIR:CONT-DIR
+                        volumes for the OCI engine [$HOME:$HOME] (can be
+                        specified multiple times)
   --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </section>
 <section id="symbiflow-bit">
 <h2>symbiflow bit<a class="headerlink" href="#symbiflow-bit" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow bit [-h] [--project PROJECT] [-p FPGA] [-o PATH]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow bit [-h] [--project NAME] [-p FPGA] [-o PATH]
                      [--oci-engine {None,docker,podman}]
-                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
-                     [--oci-work WORK]
+                     [--oci-volumes HOST-DIR:CONT-DIR] [--oci-work WORK]
 
 Performs bitstream generation
 
 optional arguments:
   -h, --help            show this help message and exit
-  --project PROJECT     basename for generated files [symbiflow]
+  --project NAME        basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {None,docker,podman}
                         OCI engine internally employed [None]
-  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
-                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-volumes HOST-DIR:CONT-DIR
+                        volumes for the OCI engine [$HOME:$HOME] (can be
+                        specified multiple times)
   --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
 </section>
 <section id="symbiflow-pgm">
 <h2>symbiflow pgm<a class="headerlink" href="#symbiflow-pgm" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pgm [-h] [--project PROJECT] [-p FPGA] [-o PATH]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>usage: symbiflow pgm [-h] [--project NAME] [-p FPGA] [-o PATH]
                      [--oci-engine {None,docker,podman}]
-                     [--oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]]
-                     [--oci-work WORK]
+                     [--oci-volumes HOST-DIR:CONT-DIR] [--oci-work WORK]
 
 Performs programming
 
 optional arguments:
   -h, --help            show this help message and exit
-  --project PROJECT     basename for generated files [symbiflow]
+  --project NAME        basename for generated files [symbiflow]
   -p FPGA, --part FPGA  name of the target FPGA part [hx8k-ct256]
   -o PATH, --outdir PATH
                         location for generated files [.]
   --oci-engine {None,docker,podman}
                         OCI engine internally employed [None]
-  --oci-volumes [HOST-DIR:CONT-DIR [HOST-DIR:CONT-DIR ...]]
-                        volumes for the OCI engine [[&#39;$HOME:$HOME&#39;]]
+  --oci-volumes HOST-DIR:CONT-DIR
+                        volumes for the OCI engine [$HOME:$HOME] (can be
+                        specified multiple times)
   --oci-work WORK       working directory for the OCI engine [$PWD]
 </pre></div>
 </div>
@@ -301,7 +291,7 @@ optional arguments:
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Rodrigo A. Melo.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
     </div>
   </body>
 </html>

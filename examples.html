@@ -66,13 +66,12 @@
 <span class="n">echo</span> <span class="s2">&quot;Synthesis (Verilog)&quot;</span>
 
 <span class="n">symbiflow</span> <span class="n">syn</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> \
-  <span class="o">--</span><span class="n">vlog</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">verilog</span><span class="o">/</span><span class="n">blink</span><span class="o">.</span><span class="n">v</span> \
-  <span class="o">--</span><span class="n">top</span> <span class="n">Blink</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+  <span class="o">--</span><span class="n">top</span> <span class="n">Blink</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">verilog</span><span class="o">/</span><span class="n">blink</span><span class="o">.</span><span class="n">v</span>
 
 <span class="n">echo</span> <span class="s2">&quot;Place and Route&quot;</span>
 
 <span class="n">symbiflow</span> <span class="n">pnr</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> \
-  <span class="o">--</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">clk</span><span class="o">.</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">led</span><span class="o">.</span><span class="n">pcf</span> \
+  <span class="o">--</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">clk</span><span class="o">.</span><span class="n">pcf</span> <span class="o">--</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">led</span><span class="o">.</span><span class="n">pcf</span> \
   <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
 
 <span class="n">echo</span> <span class="s2">&quot;Bitstream generation&quot;</span>
@@ -90,9 +89,8 @@
 <span class="n">echo</span> <span class="s2">&quot;From Synthesis to Bitstream generation in one step (VHDL)&quot;</span>
 
 <span class="n">symbiflow</span> <span class="nb">all</span> <span class="o">--</span><span class="n">oci</span><span class="o">-</span><span class="n">engine</span> <span class="n">docker</span> <span class="o">--</span><span class="n">part</span> <span class="n">hx1k</span><span class="o">-</span><span class="n">tq144</span> \
-  <span class="o">--</span><span class="n">vhdl</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">vhdl</span><span class="o">/</span><span class="n">blink</span><span class="o">.</span><span class="n">vhdl</span> \
-  <span class="o">--</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">clk</span><span class="o">.</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">led</span><span class="o">.</span><span class="n">pcf</span> \
-  <span class="o">--</span><span class="n">top</span> <span class="n">Blink</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span>
+  <span class="o">--</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">clk</span><span class="o">.</span><span class="n">pcf</span> <span class="o">--</span><span class="n">pcf</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">constraints</span><span class="o">/</span><span class="n">icestick</span><span class="o">/</span><span class="n">led</span><span class="o">.</span><span class="n">pcf</span> \
+  <span class="o">--</span><span class="n">top</span> <span class="n">Blink</span> <span class="o">-</span><span class="n">o</span> <span class="n">build</span><span class="o">-</span><span class="n">icestick</span> <span class="o">--</span><span class="n">project</span> <span class="n">icestick</span> <span class="o">../</span><span class="n">resources</span><span class="o">/</span><span class="n">vhdl</span><span class="o">/</span><span class="n">blink</span><span class="o">.</span><span class="n">vhdl</span>
 
 <span class="k">if</span> <span class="p">[</span> <span class="s2">&quot;$1&quot;</span> <span class="o">==</span> <span class="s2">&quot;program&quot;</span> <span class="p">];</span> <span class="n">then</span>
 
@@ -169,7 +167,7 @@
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2021, Rodrigo A. Melo.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.1.2.
     </div>
   </body>
 </html>
