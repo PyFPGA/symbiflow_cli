@@ -59,41 +59,48 @@ class SymbiFlow:
         self.oci.set_work(work)
 
     # pylint: disable=too-many-arguments
-    def synthesis(self, top, vhdl=None, vlog=None, slog=None, scf=None,
+    def synthesis(self, top, hdl=None, scf=None,
                   param=None, arch=None, define=None, include=None):
         """Performs synthesis.
 
         :param top: name of the top-level entity/module
-        :param vhdl: VHDL files (`FILE[,LIBRARY]`)
-        :type vhdl: list
-        :param vlog: Verilog files
-        :type vlog: list
-        :param slog: System Verilog files
-        :type slog: list
+        :param hdl: HDL files
+        :type hdl: list
         :param scf: Synthesis Constraint Files
         :type scf: list
-        :param param: specify top-level Generics/Parameters (`PARAM:VALUE`)
-        :type param: list
+        :param param: specify top-level Generics/Parameters
+        :type param: list of lists (`['PARAM', 'VALUE']`)
         :param arch: specify a VHDL top-level Architecture
-        :param define: specify [System] Verilog Defines (`DEFINE:VALUE`)
-        :type define: list
+        :param define: specify [System] Verilog Defines
+        :type define: list of lists (`['DEFINE', 'VALUE']`)
         :param include: specify [System] Verilog Include Paths
         :type include: list
         :raises FileNotFoundError: when no HDL files are provided
+        :raises NotImplementedError: when a feature was still not implemented
+        :raises TypeError: when a Verilog header file is specified as an HDL
         """
-        if vhdl is None and vlog is None and slog is None:
-            raise FileNotFoundError()
-        if slog is not None:
-            raise NotImplementedError('slog')
         if scf is not None:
-            raise NotImplementedError('scf')
+            raise NotImplementedError('scf not yet supported')
+        if hdl is None:
+            raise FileNotFoundError('at least one hdl file must be provided')
+        vhdl = []
+        vlog = []
+        for file in hdl:
+            if Path(file).suffix in ['.vhd', '.vhdl'] or ',' in file:
+                vhdl.append(file)
+            elif Path(file).suffix in ['.h', '.vh', '.svh']:
+                raise TypeError('use include for Verilog header files')
+            elif Path(file).suffix == '.sv':
+                raise NotImplementedError('System Verilog not yet supported')
+            else:
+                vlog.append(file)
         self.top = top
-        if vhdl is not None:
+        if len(vhdl) > 0:
             self._run_ghdl(vhdl)
             options = self._vhdl_options(arch, param)
         else:
             options = self._vlog_options(vlog, include, define, param)
-        self._run_yosys('-m ghdl' if vhdl is not None else '', options)
+        self._run_yosys('-m ghdl' if len(vhdl) > 0 else '', options)
 
     def _run_ghdl(self, vhdl):
         """Prepare and run GHDL analysis."""
@@ -129,7 +136,6 @@ class SymbiFlow:
                 options.append('verilog_defaults -add -I{}'.format(aux))
         if define is not None:
             for aux in define:
-                aux = aux.split(':')
                 options.append('verilog_defines -D{}={}'.format(
                     aux[0], aux[1]
                 ))
@@ -138,7 +144,6 @@ class SymbiFlow:
         if param is not None:
             parameters = []
             for aux in param:
-                aux = aux.split(':')
                 parameters.append('-set {} {}'.format(aux[0], aux[1]))
             options.append(
                 'chparam {} {}'.format(' '.join(parameters), self.top)
@@ -151,7 +156,6 @@ class SymbiFlow:
         generics = []
         if param is not None:
             for aux in param:
-                aux = aux.split(':')
                 generics.append('-g{}={}'.format(aux[0], aux[1]))
         options = [_template('ghdl-synth').format(
              command='ghdl',

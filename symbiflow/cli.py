@@ -28,8 +28,10 @@ _PGM_DESC = 'Performs programming'
 _DEF_PROJECT = 'symbiflow'
 _DEF_PART = 'hx8k-ct256'
 _DEF_OUTDIR = '.'
-_DEF_OCI_VOLUMES = ['$HOME:$HOME']
+_DEF_OCI_VOLUMES = '$HOME:$HOME'
 _DEF_OCI_WORK = '$PWD'
+
+_MULTIPLE_MSG = '(can be specified multiple times)'
 
 _COMMANDS = ['all', 'syn', 'pnr', 'bit', 'pgm']
 
@@ -48,7 +50,7 @@ def main():
 
     args_shared.add_argument(
         '--project',
-        metavar='PROJECT',
+        metavar='NAME',
         default=_DEF_PROJECT,
         help='basename for generated files [{}]'.format(_DEF_PROJECT)
     )
@@ -77,9 +79,11 @@ def main():
     args_shared.add_argument(
         "--oci-volumes",
         metavar='HOST-DIR:CONT-DIR',
-        nargs='*',
-        default=_DEF_OCI_VOLUMES,
-        help='volumes for the OCI engine [{}]'.format(_DEF_OCI_VOLUMES)
+        action='append',
+        default=[_DEF_OCI_VOLUMES],
+        help='volumes for the OCI engine [{}] {}'.format(
+            _DEF_OCI_VOLUMES, _MULTIPLE_MSG
+        )
     )
 
     args_shared.add_argument(
@@ -101,76 +105,65 @@ def main():
 
     args_for_syn.add_argument(
         '--param',
-        metavar='PARAM:VALUE',
-        nargs='*',
-        help='specify top-level Generics/Parameters'
+        metavar=('NAME', 'VALUE'),
+        action='append',
+        nargs=2,
+        help='specify a top-level Generic/Parameter {}'.format(_MULTIPLE_MSG)
     )
 
     args_for_syn.add_argument(
         '--arch',
-        metavar='ARCHITECTURE',
+        metavar='NAME',
         help='specify a VHDL top-level Architecture'
     )
 
     args_for_syn.add_argument(
         '--define',
-        metavar='DEFINE:VALUE',
-        nargs='*',
-        help='specify [System] Verilog Defines'
+        metavar=('NAME', 'VALUE'),
+        action='append',
+        nargs=2,
+        help='specify a [System] Verilog Define {}'.format(_MULTIPLE_MSG)
     )
 
     args_for_syn.add_argument(
         '--include',
         metavar='PATH',
-        nargs='*',
-        help='specify [System] Verilog Include Paths'
+        action='append',
+        help='specify a [System] Verilog Include Path {}'.format(
+            _MULTIPLE_MSG
+        )
     )
 
     args_for_syn.add_argument(
-        '--vhdl',
+        'hdl',
         metavar='FILE[,LIBRARY]',
         nargs='+',
-        help='VHDL files'
-    )
-
-    args_for_syn.add_argument(
-        '--vlog',
-        metavar='FILE',
-        nargs='+',
-        help='Verilog files'
-    )
-
-    args_for_syn.add_argument(
-        '--slog',
-        metavar='FILE',
-        nargs='+',
-        help='System Verilog files'
+        help='HDL file (with an optional LIBRARY specification for VHDL)'
     )
 
     args_for_syn.add_argument(
         '--scf',
         metavar='FILE',
-        nargs='+',
-        help='Synthesis Constraint Files'
+        action='append',
+        help='Synthesis Constraint File {}'.format(_MULTIPLE_MSG)
     )
 
     # Arguments for pnr
 
     args_for_pnr = argparse.ArgumentParser(add_help=False)
+
     args_for_pnr.add_argument(
         '--pcf',
         metavar='FILE',
-        nargs='+',
-        help='Physical Constraint Files'
+        action='append',
+        help='Physical Constraint File {}'.format(_MULTIPLE_MSG)
     )
 
     #
     # Parse
     #
 
-    parser = argparse.ArgumentParser(
-        description=__doc__
-    )
+    parser = argparse.ArgumentParser(description=__doc__)
 
     parser.add_argument(
         '-v', '--version',
@@ -229,16 +222,6 @@ def main():
     if args.command not in _COMMANDS:
         logging.critical('please specify an available command %s', _COMMANDS)
         sys.exit(errno.EPERM)
-    if args.command in ['all', 'syn']:
-        if args.vhdl == args.vlog == args.slog is None:
-            logging.critical('please provide at least one HDL file')
-            sys.exit(errno.ENOENT)
-        if args.slog is not None:
-            logging.critical('System Verilog is not yet supported')
-            sys.exit(errno.ENOSYS)
-        if args.scf is not None:
-            logging.critical('Synthesis Constraints are not yet supported')
-            sys.exit(errno.ENOSYS)
 
     #
     # Invoke the tools
@@ -247,8 +230,15 @@ def main():
     prj = SymbiFlow(args.project, args.part, args.outdir)
     prj.set_oci(args.oci_engine, args.oci_volumes, args.oci_work)
     if args.command in ['all', 'syn']:
-        prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
-                      args.param, args.arch, args.define, args.include)
+        try:
+            prj.synthesis(args.top, args.hdl, args.scf,
+                          args.param, args.arch, args.define, args.include)
+        except NotImplementedError as emsg:
+            logging.critical(emsg)
+            sys.exit(errno.ENOSYS)
+        except TypeError as emsg:
+            logging.critical(emsg)
+            sys.exit(errno.ENOSYS)
     if args.command in ['all', 'pnr']:
         prj.pnr(args.pcf)
     if args.command in ['all', 'bit']:
