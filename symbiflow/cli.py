@@ -135,31 +135,17 @@ def main():
     )
 
     args_for_syn.add_argument(
-        '--vhdl',
+        'hdl',
         metavar='FILE[,LIBRARY]',
         nargs='+',
-        help='VHDL files'
-    )
-
-    args_for_syn.add_argument(
-        '--vlog',
-        metavar='FILE',
-        nargs='+',
-        help='Verilog files'
-    )
-
-    args_for_syn.add_argument(
-        '--slog',
-        metavar='FILE',
-        nargs='+',
-        help='System Verilog files'
+        help='HDL file (with an optional LIBRARY specification for VHDL)'
     )
 
     args_for_syn.add_argument(
         '--scf',
         metavar='FILE',
         action='append',
-        help='Synthesis Constraint Files {}'.format(_MULTIPLE_MSG)
+        help='Synthesis Constraint File {}'.format(_MULTIPLE_MSG)
     )
 
     # Arguments for pnr
@@ -170,7 +156,7 @@ def main():
         '--pcf',
         metavar='FILE',
         action='append',
-        help='Physical Constraint Files {}'.format(_MULTIPLE_MSG)
+        help='Physical Constraint File {}'.format(_MULTIPLE_MSG)
     )
 
     #
@@ -236,16 +222,6 @@ def main():
     if args.command not in _COMMANDS:
         logging.critical('please specify an available command %s', _COMMANDS)
         sys.exit(errno.EPERM)
-    if args.command in ['all', 'syn']:
-        if args.vhdl == args.vlog == args.slog is None:
-            logging.critical('please provide at least one HDL file')
-            sys.exit(errno.ENOENT)
-        if args.slog is not None:
-            logging.critical('System Verilog is not yet supported')
-            sys.exit(errno.ENOSYS)
-        if args.scf is not None:
-            logging.critical('Synthesis Constraints are not yet supported')
-            sys.exit(errno.ENOSYS)
 
     #
     # Invoke the tools
@@ -254,8 +230,15 @@ def main():
     prj = SymbiFlow(args.project, args.part, args.outdir)
     prj.set_oci(args.oci_engine, args.oci_volumes, args.oci_work)
     if args.command in ['all', 'syn']:
-        prj.synthesis(args.top, args.vhdl, args.vlog, args.slog, args.scf,
-                      args.param, args.arch, args.define, args.include)
+        try:
+            prj.synthesis(args.top, args.hdl, args.scf,
+                          args.param, args.arch, args.define, args.include)
+        except NotImplementedError as emsg:
+            logging.critical(emsg)
+            sys.exit(errno.ENOSYS)
+        except TypeError as emsg:
+            logging.critical(emsg)
+            sys.exit(errno.ENOSYS)
     if args.command in ['all', 'pnr']:
         prj.pnr(args.pcf)
     if args.command in ['all', 'bit']:

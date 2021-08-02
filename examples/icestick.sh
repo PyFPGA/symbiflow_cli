@@ -3,8 +3,7 @@ set -e # Exit immediately if a command exits with a non-zero status.
 echo "Synthesis (Verilog)"
 
 symbiflow syn --oci-engine docker --part hx1k-tq144 \
-  --vlog ../resources/verilog/blink.v \
-  --top Blink -o build-icestick --project icestick
+  --top Blink -o build-icestick --project icestick ../resources/verilog/blink.v
 
 echo "Place and Route"
 
@@ -27,9 +26,8 @@ fi
 echo "From Synthesis to Bitstream generation in one step (VHDL)"
 
 symbiflow all --oci-engine docker --part hx1k-tq144 \
-  --vhdl ../resources/vhdl/blink.vhdl \
   --pcf ../resources/constraints/icestick/clk.pcf --pcf ../resources/constraints/icestick/led.pcf \
-  --top Blink -o build-icestick --project icestick
+  --top Blink -o build-icestick --project icestick ../resources/vhdl/blink.vhdl
 
 if [ "$1" == "program" ]; then
 
